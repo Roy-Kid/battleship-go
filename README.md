@@ -1,8 +1,8 @@
 # Battleship Go
 
-## 中文教学版
+## English teaching edition
 
-新增的零基础 Python 教学重构版、10 天独立代码和第一天 HTML 课件见 [teaching/README.md](teaching/README.md)。启动教学完成版：`python teaching/refactored/main.py`。以下内容为原版说明。
+The beginner Python course includes ten independent daily projects, English slides, and a complete Week 2 teaching plan. See [teaching/README.md](teaching/README.md). Run the completed teaching game with `python teaching/refactored/main.py`. The original project is described below.
 
 Battleship Go is a multiplayer battleship game made in Python using Pygame. Multiplayer uses sockets for connection under the Client-Server architecture.
 

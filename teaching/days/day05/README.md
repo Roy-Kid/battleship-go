@@ -1,29 +1,50 @@
-# 第5天：第一次开火
+# Day 5: Conditional branching
 
-本课2小时。知识：字典、记录状态、查找、条件反馈。
+Two hours. Core programming concept: **conditional branching**. Other syntax is review or teacher-supplied support.
 
-## 运行
+## Core concept: conditional branching
 
-在已激活的Python 3.13环境中进入本目录：
+**Definition:** A conditional chooses which block of instructions runs according to whether a condition is true or false.
+
+**Example:**
+
+```python
+result = {'kind': 'miss', 'ship': None}
+if result['kind'] == 'miss':
+    message = 'Try another cell'
+else:
+    message = 'Ship hit!'
+print(message)
+```
+
+**Explain it:** Predict which branch runs for miss, hit and sunk. Does assigning = test equality?
+
+The game feature is an application of this concept. Assess whether you can explain and use the concept, as well as run the game.
+
+## Run
+
+Enter this directory in an active Python 3.13 environment:
 
 ```bash
+python starter.py
+# Reference result:
 python main.py
 ```
 
-`starter.py` 是课堂起点，`main.py` 是参考完成版。从上一天的可运行程序开始，新增本课功能。
+`starter.py` is the classroom starting point; `main.py` is the reference solution. The starter includes the placement, firing and drawing support; replace its marked feedback placeholder with your own conditional chain.
 
-## 学生任务
+## Student tasks
 
-按Enter锁定自己的舰队；点击右侧隐藏舰队；把落空与命中分别记录。
+Press Enter to lock your fleet. The teacher supplies the fire call and shot-recording scaffold. After a valid result, write if/elif/else branches that select MISS, SUNK or HIT feedback. Click the right board to apply the branch to real results. Keep the existing phase and coordinate guards.
 
-## 老师提供
+## Teacher supplied
 
-这一课是射击练习，不轮流、不做最终胜负；board.py保持相同接口。
+This is shooting practice without alternating turns or final victory. board.py keeps the same interface.
 
-## 挑战与验收
+## Challenge and checks
 
-重复点击一个目标，确认不会增加射击次数；解释shots为什么要记住历史。
+Click a target twice and check that the shot count does not increase. Explain why shots needs to remember history.
 
-先说预测，运行验证，再解释原因。每次保存一个可运行版本。本目录包含独立素材，可单独复制；无需访问相邻天的目录。
+Predict, run, then explain. Save a working version after each step. This folder includes independent source and assets; copy it whole without neighboring day folders.
 
-素材：Water+ / ninjikin（海面）；Sea Warfare set（舰船）。具体来源见teaching/README.md。
+Sea: Water+ / ninjikin. Ships: Sea Warfare set. See [course credits](../../README.md#assets).

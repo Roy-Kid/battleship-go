@@ -1,4 +1,4 @@
-"""运行：python -m unittest discover -s teaching/tests -v"""
+"""Run: python -m unittest discover -s teaching/tests -v"""
 import io
 import json
 import random
@@ -61,7 +61,7 @@ class RulesTests(unittest.TestCase):
         targets=[p for s in m.players['b']['fleet'] for p in cells(s)]
         water=next((x,y) for x in range(10) for y in range(10)
                    if (x,y) not in {p for s in m.players['a']['fleet'] for p in cells(s)})
-        # B 每轮选择不同水格，确保 A 最终击沉全部三艘。
+        # B chooses a different water cell each turn so A can sink all three ships.
         waters=[(x,y) for x in range(10) for y in range(10)
                 if (x,y) not in {p for s in m.players['a']['fleet'] for p in cells(s)}]
         for i,p in enumerate(targets):
@@ -86,9 +86,9 @@ class RulesTests(unittest.TestCase):
 class FramingTests(unittest.TestCase):
     def test_unicode_stars_and_multiple_messages(self):
         stream=io.BytesIO()
-        send_message(stream,{'name':'小*船'});send_message(stream,{'x':3})
+        send_message(stream,{'name':'Båt*Boat'});send_message(stream,{'x':3})
         stream.seek(0)
-        self.assertEqual(receive_message(stream),{'name':'小*船'})
+        self.assertEqual(receive_message(stream),{'name':'Båt*Boat'})
         self.assertEqual(receive_message(stream),{'x':3})
         with self.assertRaises(ConnectionError): receive_message(stream)
 
@@ -99,7 +99,7 @@ class FramingTests(unittest.TestCase):
             def readinto(self,b):
                 if not self.data: return 0
                 n=min(3,len(b),len(self.data));b[:n]=self.data[:n];del self.data[:n];return n
-        message={'name':'舰*船','action':'attack','x':3}
+        message={'name':'Båt*Ship','action':'attack','x':3}
         with io.BufferedReader(Chunks((json.dumps(message,ensure_ascii=False)+'\n').encode())) as stream:
             self.assertEqual(receive_message(stream),message)
 

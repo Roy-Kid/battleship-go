@@ -1,4 +1,4 @@
-"""终端消息实验：先启动 server.py，再开两个客户端。/quit 退出。"""
+"""Terminal message lab: start server.py, then two clients. /quit exits."""
 import argparse
 import socket
 import threading
@@ -10,7 +10,7 @@ parser.add_argument('--port', type=int, default=65433)
 parser.add_argument('--name', default='Alice')
 args = parser.parse_args()
 
-# 以下连接与后台接收代码由老师提供。学生重点修改最下面的 message 字典。
+# Teacher-supplied connection and receiver. Students edit the message dictionary below.
 def receive(stream):
     try:
         while True:

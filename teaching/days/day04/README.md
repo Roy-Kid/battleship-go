@@ -1,29 +1,47 @@
-# 第4天：布置舰队
+# Day 4: Functions
 
-本课2小时。知识：函数、参数、布尔结果、列表与字典初识。
+Two hours. Core programming concept: **functions**. Other syntax is review or teacher-supplied support.
 
-## 运行
+## Core concept: functions
 
-在已激活的Python 3.13环境中进入本目录：
+**Definition:** A function is a named block of instructions that can receive arguments and return a result.
+
+**Example:**
+
+```python
+from board import cells
+ship = {'name': 'Scout', 'x': 2, 'y': 3, 'vertical': False}
+print(cells(ship))  # [(2, 3), (3, 3)]
+```
+
+**Explain it:** Identify the argument and returned value in cells(ship). Explain how can_place uses its result.
+
+The game feature is an application of this concept. Assess whether you can explain and use the concept, as well as run the game.
+
+## Run
+
+Enter this directory in an active Python 3.13 environment:
 
 ```bash
+python starter.py
+# Reference result:
 python main.py
 ```
 
-`starter.py` 是课堂起点，`main.py` 是参考完成版。从上一天的可运行程序开始，新增本课功能。
+`starter.py` is the classroom starting point; `main.py` is the reference solution. Build today's feature from the previous working version.
 
-## 学生任务
+## Student tasks
 
-把舰船表示为起点与朝向；调用can_place决定能否提交；给预览染成红或绿。
+First define and call the small report_position example from the slides in a separate practice file. Then identify parameters and returned results in board.py. Represent a ship by its start cell and orientation. Call can_place before committing a placement, and color previews red or green.
 
-## 老师提供
+## Teacher supplied
 
-board.py是老师提供的已验证工具。先阅读cells，再用can_place；不要求一天重写全部辅助函数。
+board.py is a verified tool supplied by the teacher. Read cells, then use can_place; students do not need to rewrite every helper in one lesson.
 
-## 挑战与验收
+## Challenge and checks
 
-空格随机布阵；数字1/2/3重新选择船，R旋转；同名船换位置时排除它的旧占用。
+Use Space for a random fleet, 1/2/3 to reselect a ship, and R to rotate. When moving a named ship, exclude its previous occupied cells.
 
-先说预测，运行验证，再解释原因。每次保存一个可运行版本。本目录包含独立素材，可单独复制；无需访问相邻天的目录。
+Predict, run, then explain. Save a working version after each step. This folder includes independent source and assets; copy it whole without neighboring day folders.
 
-素材：Water+ / ninjikin（海面）；Sea Warfare set（舰船）。具体来源见teaching/README.md。
+Sea: Water+ / ninjikin. Ships: Sea Warfare set. See [course credits](../../README.md#assets).

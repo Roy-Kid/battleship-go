@@ -1,9 +1,11 @@
-"""按数字键选船，R 转向，点击左棋盘放置；空格随机，Enter 开始。"""
+"""Day 5 starting point: write conditional branches for shot feedback.
+Placement, firing and drawing are teacher supplied; the branch task is marked below.
+"""
 from pathlib import Path
 import random
 import sys
 import pygame
-from board import LENGTHS, cells, can_place, random_fleet
+from board import LENGTHS, cells, can_place, random_fleet, fire, statistics
 
 ASSETS = Path(__file__).resolve().parent / 'assets'
 pygame.init()
@@ -19,6 +21,7 @@ vertical = False
 phase = 'placement'
 message = '1/2/3: select ship | R: rotate | SPACE: random fleet'
 shots = {}
+enemy = random_fleet()
 
 def text(value, x, y):
     screen.blit(font.render(value, True, 'white'), (x, y))
@@ -48,6 +51,12 @@ while running:
                 selected = list(LENGTHS)[event.key-pygame.K_1]
             if event.key == pygame.K_SPACE:
                 fleet = random_fleet()
+            if event.key == pygame.K_RETURN:
+                if len(fleet) == 3:
+                    phase = 'battle'
+                    message = 'Click the right board to fire.'
+                else:
+                    message = 'Place all three ships first.'
         if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
             mx, my = event.pos
             if phase == 'placement' and LEFT <= mx < LEFT+360 and TOP <= my < TOP+360:
@@ -58,6 +67,14 @@ while running:
                     selected = next((n for n in LENGTHS if not any(s['name']==n for s in fleet)), selected)
                 else:
                     message = 'Overlap or outside board. Try another cell.'
+            if phase == 'battle' and RIGHT <= mx < RIGHT+360 and TOP <= my < TOP+360:
+                try:
+                    result = fire(enemy, shots, (mx-RIGHT)//CELL, (my-TOP)//CELL)
+                    # Student task: choose MISS, SUNK or HIT with if/elif/else.
+                    # Inspect result['kind']; the rule function already resolved it.
+                    message = 'Choose feedback for ' + result['kind']
+                except ValueError as error:
+                    message = str(error)
     screen.fill((9,28,42))
     text('YOUR FLEET', LEFT, 80)
     text('TARGET WATERS', RIGHT, 80)
@@ -75,6 +92,7 @@ while running:
                 if 0 <= x < 10 and 0 <= y < 10:
                     pygame.draw.rect(screen,color,(LEFT+x*CELL+2,TOP+y*CELL+2,CELL-4,CELL-4),3)
         text('Selected: '+selected, LEFT, 525)
+        text('ENTER: lock fleet and start', RIGHT, 525)
     text(message, LEFT, 30)
     pygame.display.flip()
     if '--smoke' in sys.argv:

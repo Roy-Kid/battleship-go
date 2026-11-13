@@ -1,55 +1,50 @@
-# 第一天讲师手册
+# Day 1 teacher guide: Data and operations
 
-当前推荐使用增量实验：见 `../days/day01/increments/README.md`。先试玩03，再学习01完整场景、02图片变换、03合并与键盘控制；采用该文件中的120分钟时间表。下面保留原先的单文件讲法与知识参考，HTML课件按需选讲。
+**One core concept: data and operations.** Data are values a program stores and uses. An operation reads, combines or changes values to produce a result.
 
-目标：学生独立运行程序；显示舰船；修改坐标并解释结果。Python知识围绕这些动作讲解，拓展内容不作为当天必须掌握的考核。
+Begin with the definition, work through the example in the student lesson, ask for a prediction, then apply it to the game. Treat other syntax as review or supplied support. The exit explanation is: Identify the data, operation and result in x = x + 40. Predict before running.
 
-## 课前
+Use the [incremental experiments](../days/day01/increments/README.md) and their 120-minute schedule by default. Play 03 first, then teach the complete scene in 01, transforms in 02, and combination and controls in 03. The single-file route below remains an alternative; choose slides as needed.
 
-1. 每台机器配置好 Python 3.13、Pygame 2.6.1 和编辑器。运行 `python teaching/days/day01/starter.py` 看见海面，再运行 main.py 看见舰船。
-2. 把 day01 整个目录复制到每个学生的工作区；不要只发 Python 文件。发源码起点，不让学生抄完整的初始化代码。
-3. 浏览器打开 day01.html。左右方向键翻页，N 打开讲师备注，O 目录，F 全屏；每页备注写有讲法和易错点。离线可用。
-4. 游戏循环、素材路径与缩放是教师提供的支架。不要为了逐行讲完而牺牲学生独立操作。
+Goal: each student runs a program, displays a ship, changes its coordinates and explains the result. Optional extensions are not required for passing the lesson.
 
-## 120分钟安排
+## Before class
 
-| 时间 | 课堂活动 | 必须完成 |
+1. Prepare Python 3.13, Pygame 2.6.1 and an editor on each machine. Run `python teaching/days/day01/starter.py` to see the sea, then main.py to see the ship.
+2. Copy the whole day01 folder, including assets, to each student's workspace. Supply a working starting point rather than asking them to copy initialization code.
+3. Open day01.html in a browser. Arrows navigate, N shows notes, O opens the overview, F toggles full screen. Keep the slides folder together for offline use.
+4. The game loop, asset paths and initial scaling are supplied support. Leave time for independent editing.
+
+## Alternative single-file schedule
+
+| Time | Activity | Required result |
 |---|---|---|
-| 0—15 | 展示最终小游戏，说明今天的成果，认识程序步骤 | 每人说出一个想实现的效果 |
-| 15—35 | 找文件、运行起点，介绍输出、变量和坐标 | 每台电脑出现海面窗口 |
-| 35—55 | Python小实验：数字与文字、赋值更新、元组、调用、注释、缩进 | 学生先猜，再运行验证 |
-| 55—75 | 在 starter.py 加舰船，修改x和y；用条件/循环知识读懂支架 | 每人独立显示舰船，解释两次坐标变化 |
-| 75—85 | 休息 | 保存文件 |
-| 85—110 | 改窗口名、第二艘船、底色实验 | 至少完成一个独立修改 |
-| 110—120 | 找错、展示、离堂解释 | 能指出修改的行与画面变化 |
+| 0–15 | Show the final game and today's goal; discuss program steps | Each student names an effect they want to make |
+| 15–35 | Find files, run the starter, introduce output, variables and coordinates | A sea window on every machine |
+| 35–55 | Predict and run short Python experiments | Numbers/text, assignment, tuples, calls, comments, indentation |
+| 55–75 | Add a ship to starter.py and change x/y; read the supplied conditions and loop | Each student displays a ship and explains two position changes |
+| 75–85 | Break | Save files |
+| 85–110 | Change title, add a second ship or explore background colors | One independent change |
+| 110–120 | Debug, demonstrate and explain | Identify the edited line and its visible effect |
 
-课件共46页：前40页覆盖主线，后6页是input、类型转换、定义函数、for循环、报错参考、自测。不要要求逐页等时讲完。数字运算/类型表可以快速演示，函数定义、for和输入转换留到课后；条件与while今天以读懂提供的代码为主，后续再独立编写。两小时优先保证“每人做出来、能解释”。逐页备注中原有时间是建议位置，插入Python知识页后以此表为总时间安排。
+The deck has 48 slides. Its core teaches data and operations; the final eleven slides are optional syntax and debugging references. Do not give every slide equal time. Use arithmetic and types to explain data and operations. Keep function definitions, for, if/while syntax and input conversion in the optional reference section; only read enough of the supplied loop to run the scene. Use this table for overall timing; individual slide notes are suggested positions, not a second schedule.
 
-## 知识与文件
+## Files and teaching prompts
 
-- `python_basics.py`：逐段练习print、数字与字符串、运算、赋值、元组、if/else、while；末尾函数定义和for是选做。
-- `starter.py`：主作业。注释位置加入 `screen.blit(ship, (x, y))`，放在海面之后、刷新之前。
-- `main.py`：参考答案，展示时使用；不要学生一上来复制答案。
+- `python_basics.py`: use print, numbers/strings, arithmetic and assignment for the core concept. Tuple syntax is preview; conditionals, loops and function definitions are optional references.
+- `starter.py`: insert `screen.blit(ship, (x, y))` after the sea drawing and before refresh.
+- `main.py`: combined reference for demonstration; students first make their own edits.
 
-## 提问与观察
+Ask why `x = x + 40` works: read the old value, calculate, then assign. Ask where print appears (terminal) and where blit draws (window). If background color changes are invisible, the sea covers it; comment out the sea drawing. Change one value at a time to explain cause and effect. `(200, 180)` locates the top-left corner, not the center. A top-left corner at `(0,0)` does not place the entire ship off screen; its dimensions also matter.
 
-- `x = x + 40` 为什么不是数学等式？先读旧值、计算，再更新。
-- 为什么 print 的文字不出现在游戏窗口里？print 输出到终端，blit画到窗口。
-- 为什么改背景颜色没有变化？海面图片铺满窗口，把底色盖住了；注释掉画海语句后再观察。
-- 为什么只改一处？容易把变化归因到具体修改。
-- `(200, 180)` 指向图片左上角，不是中心。
-- 图片左上角在(0,0)时并不意味着船完全出界；船的宽高也影响是否完整可见。
+Avoid input inside the game loop and print on every frame. Do not run an unbounded while True experiment without an exit.
 
-不要在游戏主循环里加input或每帧print。不要让学生直接运行没有退出条件的while True实验。
+## Different starting levels
 
-## 差异化教学
+Minimum: display one ship and explain x/y directions. Standard: change title and position, and fix a spelling or indentation error. Extension: add a ship, explore colors, functions or input. Fast finishers predict a partner's result and exchange explanations while each student edits their own file.
 
-基础：完成一艘船，正确说出x/y方向。
-标准：改标题、位置，独立排查一次拼写/缩进错误。
-扩展：第二艘船、颜色、函数与输入小实验。快的学生先预测同桌的结果，然后交换讲解，避免代写。
+For 3–5 students, allow around a minute each to demonstrate. Assess whether they can run, explain and independently change their program.
 
-3—5人小班可每人展示1分钟。评价依据是“能运行、能解释、能自己改”，不比较装饰多少。
+## After class
 
-## 课后
-
-保存学生的starter.py和一张自己的游戏截图。下次课从自己的版本继续，遇到损坏文件可从day02/starter.py恢复。不要要求第一天背诵事件循环或网络概念。
+Save each student's starter.py and a screenshot. Continue from their own version next lesson; day02/starter.py is a recovery point. Do not require memorization of the event loop or networking concepts.

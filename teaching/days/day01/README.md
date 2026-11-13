@@ -1,33 +1,45 @@
-# 第1天：显示、旋转、缩放，再合并
+# Day 1: Data and operations
 
-本课2小时。知识：输出、变量、数字/字符串、坐标、调用、注释与缩进。
+Two hours. Core programming concept: **data and operations**. Other syntax is review or teacher-supplied support.
 
-## 运行
+## Core concept: data and operations
 
-在已激活的Python 3.13环境中进入本目录：
+**Definition:** Data are values a program stores and uses. An operation reads, combines or changes values to produce a result.
+
+**Example:**
+
+```python
+x = 200             # Data: an integer stored with a name
+x = x + 40          # Operation: addition, then assignment
+print(x)            # Operation: display the result, 240
+```
+
+**Explain it:** Identify the data, operation and result in x = x + 40. Predict before running.
+
+The game feature is an application of this concept. Assess whether you can explain and use the concept, as well as run the game.
+
+## Run
+
+Enter this directory in an active Python 3.13 environment:
 
 ```bash
 python main.py
 ```
 
-推荐按 [increments/README.md](increments/README.md) 上课：3个阶段：完整场景、图片变换、合并与键盘控制。
+Follow the recommended [incremental route](increments/README.md): a complete scene, image transforms, then combined keyboard controls. Play `main.py` for five minutes first: arrows move, R rotates, +/- scales and Space resets. The equals key also enlarges the ship.
 
-`main.py` 已更新为合并完成版：方向键移动、R旋转、+/-缩放、空格复位。先试玩5分钟，再进入 increments 按三个阶段学习。
+`starter.py` retains the original task of adding a ship to a sea-only window. `python_basics.py` is a syntax reference.
 
-`starter.py` 保留为原先的“只显示舰船”练习；`python_basics.py` 是Python语法参考。
+## Student tasks
 
-## 学生任务
+Run each experiment, change its angle, dimensions and coordinates, and observe the effect. Then follow Combine A–E in `03_combined.py` to put state, key handling and drawing into one program.
 
-依次运行独立实验，修改角度、宽高和坐标，观察变化。最后参照03中的合并A—E，将状态、按键处理和绘制放进一份程序。
+## Teacher supplied
 
-## 老师提供
+Window setup and loops are supplied in every experiment. Focus on the marked sections. `main.py` and `03_combined.py` are combined reference solutions.
 
-每个实验的窗口和循环是老师提供的固定支架；学生先只看“本次重点”。main.py与03_combined.py是合并答案。
+## Challenge and checks
 
-## 挑战与验收
+Change the title, draw another ship at a different location, or comment out the sea drawing before changing the background color. Predict, run, explain, and save a working version after each step.
 
-改标题；在不同位置再画一艘船；注释掉海面绘制后改底色。
-
-先说预测，运行验证，再解释原因。每次保存一个可运行版本。本目录包含独立素材，可单独复制；无需访问相邻天的目录。
-
-素材：Water+ / ninjikin（海面）；Sea Warfare set（舰船）。具体来源见teaching/README.md。
+This directory includes independent assets; copy the whole folder. Sea: Water+ / ninjikin. Ships: Sea Warfare set. See [course credits](../../README.md#assets).

@@ -1,4 +1,6 @@
-"""按数字键选船，R 转向，点击左棋盘放置；空格随机，Enter 开始。"""
+"""Day 9 baseline: the Day 7 solo game; this file does not accept --connect.
+Compare it with the teacher-supplied main.py integration, then edit a copy of main.py.
+"""
 from pathlib import Path
 import random
 import sys

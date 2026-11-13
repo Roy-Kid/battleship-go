@@ -1,4 +1,4 @@
-"""无图形依赖。局域网：python server.py --host 0.0.0.0"""
+"""No graphics dependency. LAN: python server.py --host 0.0.0.0"""
 import argparse
 import socketserver
 import threading
@@ -56,7 +56,7 @@ class Handler(socketserver.StreamRequestHandler):
                     response = {'state': match.view(identity), 'error': error}
                 send_message(self.wfile, response)
         except (OSError, ValueError, ConnectionError):
-            pass  # 连接结束；finally 负责通知另一位玩家。
+            pass  # Connection ended; finally notifies the other player.
         finally:
             if joined:
                 with self.server.lock:

@@ -1,4 +1,6 @@
-"""按数字键选船，R 转向，点击左棋盘放置；空格随机，Enter 开始。"""
+"""Day 7 starting point: add a computer opponent to the completed Day 6 game.
+Number keys select ships, R rotates, left board places; Space randomizes, Enter starts.
+"""
 from pathlib import Path
 import random
 import sys
@@ -20,6 +22,7 @@ phase = 'placement'
 message = '1/2/3: select ship | R: rotate | SPACE: random fleet'
 shots = {}
 enemy = random_fleet()
+# Task 1: initialize incoming, my_turn and ai_at here.
 
 def text(value, x, y):
     screen.blit(font.render(value, True, 'white'), (x, y))
@@ -65,6 +68,7 @@ while running:
                     selected = next((n for n in LENGTHS if not any(s['name']==n for s in fleet)), selected)
                 else:
                     message = 'Overlap or outside board. Try another cell.'
+            # Task 2: also require my_turn before accepting a player attack.
             if phase == 'battle' and RIGHT <= mx < RIGHT+360 and TOP <= my < TOP+360:
                 try:
                     result = fire(enemy, shots, (mx-RIGHT)//CELL, (my-TOP)//CELL)
@@ -72,8 +76,11 @@ while running:
                     if statistics(shots)['sunk'] == 3:
                         phase = 'finished'
                         message = 'YOU WIN! Close the window to play again.'
+                    # After a valid shot, end your turn and set a 600 ms deadline.
                 except ValueError as error:
                     message = str(error)
+    # Task 3: outside the event loop, perform one due computer attack.
+    # Use incoming to exclude tried cells; check for defeat, then return the turn.
     screen.fill((9,28,42))
     text('YOUR FLEET', LEFT, 80)
     text('TARGET WATERS', RIGHT, 80)
@@ -82,6 +89,7 @@ while running:
     for s in fleet:
         for x,y in cells(s):
             pygame.draw.rect(screen, (75,180,155), (LEFT+x*CELL+4,TOP+y*CELL+4,CELL-8,CELL-8))
+    # Task 4: draw incoming markers here, on top of the ships.
     if phase == 'placement':
         mx,my = pygame.mouse.get_pos()
         if LEFT <= mx < LEFT+360 and TOP <= my < TOP+360:

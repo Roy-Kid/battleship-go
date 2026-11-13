@@ -1,4 +1,4 @@
-"""老师提供的消息服务器。python server.py --host 0.0.0.0"""
+"""Teacher-supplied message server. python server.py --host 0.0.0.0"""
 import argparse
 import socketserver
 import threading
@@ -14,7 +14,7 @@ class Room(socketserver.ThreadingTCPServer):
 
 class Handler(socketserver.StreamRequestHandler):
     def handle(self):
-        # 一把锁保护成员表和各输出流，避免两条消息交叉写入。
+        # One lock protects members and output streams so messages cannot interleave.
         self.request.settimeout(300)
         with self.server.lock:
             self.server.members.add(self.wfile)

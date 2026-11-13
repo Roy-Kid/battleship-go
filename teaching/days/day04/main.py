@@ -1,4 +1,4 @@
-"""按数字键选船，R 转向，点击左棋盘放置；空格随机，Enter 开始。"""
+"""Number keys select ships, R rotates, left board places; Space randomizes, Enter starts."""
 from pathlib import Path
 import random
 import sys

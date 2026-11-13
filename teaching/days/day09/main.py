@@ -1,4 +1,4 @@
-"""双棋盘教学完成版。默认人机；--connect IP --name Alice 可联机。"""
+"""Completed teaching edition. Play the computer, or use --connect IP --name Alice."""
 import argparse
 from pathlib import Path
 import random
@@ -16,7 +16,7 @@ SEA, INK, GOLD = (18, 52, 72), (229, 242, 239), (250, 195, 88)
 
 
 class Solo:
-    """和网络连接保持相同的界面接口，规则直接使用 Match。"""
+    """Use the same UI interface as Connection, with rules provided directly by Match."""
     def __init__(self, name):
         self.match = Match()
         self.match.join('you', name)
@@ -171,7 +171,7 @@ def run():
             board(RIGHT, state['shots'] if state else {})
             for ship in (state['fleet'] if state and state['me']['ready'] else fleet):
                 draw_ship(ship)
-            # 己方攻击标记绘制在舰船之上。
+            # Draw incoming attack markers on top of the player's ships.
             if state:
                 for key, shot in state['incoming'].items():
                     x, y = map(int, key.split(','))

@@ -1,9 +1,9 @@
-"""直接运行：python main.py。--smoke 仅供老师检查启动。"""
+"""Run: python main.py. --smoke is for teacher startup checks."""
 from pathlib import Path
 import sys
 import pygame
 
-# 素材路径由老师准备；从任何目录启动都能找到素材。
+# Teacher-supplied asset paths work from any working directory.
 ASSETS = Path(__file__).resolve().parent / "assets"
 pygame.init()
 screen = pygame.display.set_mode((800, 600))

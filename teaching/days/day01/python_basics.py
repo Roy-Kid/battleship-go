@@ -1,60 +1,60 @@
-"""第一天的 Python 小实验。可以分段运行，也可以全部运行。
-每次先预测输出，再执行；不要一次修改多个地方。
+"""Day 1 Python experiments. Run one section at a time or the whole file.
+Predict the output before running; change one thing at a time.
 """
-# 1. 输出：print 调用输出功能；括号里是要输出的内容。
-# 引号包住的是字符串；单引号和双引号都可以，左右必须配对。
-# print 的结果在终端，不会自动显示到 Pygame 窗口里。
-print('你好，舰长！')
-print('我的名字是', 'Alice')  # 逗号分隔多个参数，输出时默认用空格分开。
+# 1. Output: print displays the values inside its parentheses.
+# Quotes enclose a string; single or double quotes work, but must match.
+# print writes to the terminal, not automatically to the Pygame window.
+print('Hello, Captain!')
+print('My name is', 'Alice')  # Commas separate arguments; print puts spaces between them by default.
 
-# 2. 数字与文字是不同类型。
-print(200 + 50)  # 整数相加，输出 250。
-print('200' + '50')  # 字符串拼接，输出 20050。
-print(type(200))  # type 查看类型，输出 <class 'int'>。
-print(type('200'))  # 输出 <class 'str'>；引号让它成为文字。
+# 2. Numbers and text have different types.
+print(200 + 50)  # Integer addition: prints 250.
+print('200' + '50')  # String concatenation: prints 20050.
+print(type(200))  # type reports the type: <class 'int'>.
+print(type('200'))  # Prints <class 'str'>; quotes make it text.
 
-# 3. 运算：先乘除，后加减；括号优先。
-print(2 + 3 * 4)  # 先算 3*4，结果是 14。
-print((2 + 3) * 4)  # 括号先算，结果是 20。
+# 3. Arithmetic: multiply/divide before add/subtract; parentheses go first.
+print(2 + 3 * 4)  # 3*4 goes first; the result is 14.
+print((2 + 3) * 4)  # Parentheses go first; the result is 20.
 
-# 4. 赋值与更新：右边先计算，左边再保存。
+# 4. Assignment and updates: evaluate the right side, then store on the left.
 x = 200
 y = 180
-# 先用旧 x 计算 200+40，再把 240 保存回 x；不是数学等式。
+# Use the old x to compute 200+40, then store 240 in x; this is assignment.
 x = x + 40
-print('位置是', x, y)
-# 元组把有顺序的值放在一起；这里先 x、后 y。
+print('Position:', x, y)
+# A tuple groups values in order: x first, then y.
 position = (x, y)
 print(position)
 
-# 5. 判断：改成 score = 0，会输出什么？
+# 5. Conditions: what prints if you change this to score = 0?
 score = 10
-# >= 比较是否大于或等于，结果为 True 或 False。
-# 冒号后面的一组代码缩进 4 个空格；else 表示条件不成立时执行。
+# >= tests greater than or equal to, returning True or False.
+# Indent the block after the colon by 4 spaces; else runs when the condition is false.
 if score >= 10:
-    print('命中了！')
+    print('Hit!')
 else:
-    print('继续寻找目标')
+    print('Keep searching for a target')
 
-# 6. 循环：这里刻意只执行一次，不会无限打印。
-# running 是布尔变量；条件为 True 才会进入下一圈。
+# 6. Loops: this example runs once to avoid endless output.
+# running is a boolean; another iteration starts only while it is True.
 running = True
 while running:
-    print('这一圈执行一次')
-    running = False  # 更新循环条件，下一圈停止。
-# 这行没有缩进，在循环结束之后执行。
-print('循环结束')
+    print('This iteration runs once')
+    running = False  # Update the condition; no next iteration.
+# This unindented line runs after the loop ends.
+print('Loop finished')
 
-# 课后拓展：函数先定义，再调用。
-# def 定义函数；x、y 是形参，调用时接收传入的数值。
-# 定义只准备好这个功能，不会立即执行函数体。
+# Optional extension: define a function, then call it.
+# def defines a function; parameters x and y receive values when it is called.
+# Defining the function does not run its body yet.
 def report_position(x, y):
-    print('舰船位置：', x, y)
+    print('Ship position:', x, y)
 
-# 这才是调用：本次函数内部的 x=200、y=180。
+# This is the call: inside this invocation, x=200 and y=180.
 report_position(200, 180)
 
-# 课后拓展：从0开始重复三次。
-# range(3) 依次给出 0、1、2；不包含 3，共执行三次。
+# Optional extension: repeat three times, counting from 0.
+# range(3) yields 0, 1, 2; it excludes 3 and runs three times.
 for number in range(3):
-    print('准备第', number, '艘船')
+    print('Preparing ship', number, 'in the fleet')

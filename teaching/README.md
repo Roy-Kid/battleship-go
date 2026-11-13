@@ -1,25 +1,48 @@
-# Battleship Lab：20 小时零基础 Python 游戏课
+# Battleship Lab: a 20-hour beginner Python course
 
-适合约 15 岁、3—5 人小班。每次 2 小时，共 10 次。第一天课件在 `slides/day01.html`，用浏览器直接打开；所有图片已内嵌，不需要网络或网站服务。方向键翻页，N 显示讲师备注，O 打开目录，F 全屏。末尾 6 页为课后拓展。
+For a small class of 3–5 students, around age 15. Ten lessons, two hours each. This is the English edition on the `English` branch. Week 1 builds the scene and board; Week 2 completes the rules, computer opponent and multiplayer game.
 
-## 先看教学重构版
+## Course materials
 
-在仓库根目录、已激活 Python 3.13 环境时：
+| Lesson | One core concept | Game application | Materials |
+|---|---|---|---|
+| 1 | **Data and operations** | Display and transform a ship | [Lesson](days/day01/README.md), [slides](slides/day01.html), [teacher guide](slides/day01_teacher.md) |
+| 2 | **Data structures** | Organize and control two ship records | [Lesson](days/day02/README.md), [slides](slides/day02.html), [teacher guide](slides/day02_teacher.md) |
+| 3 | **Loops** | Draw the board | [Lesson](days/day03/README.md), [slides](slides/day03.html), [teacher guide](slides/day03_teacher.md) |
+| 4 | **Functions** | Validate fleet placement | [Lesson](days/day04/README.md), [slides](slides/day04.html), [teacher guide](slides/day04_teacher.md) |
+| 5 | **Conditional branching** | Choose shot feedback | [Lesson](days/day05/README.md), [slides](slides/day05.html), [teacher guide](slides/day05_teacher.md) |
+| 6 | **State machines** | Finish a practice game | [Lesson](days/day06/README.md), [slides](slides/day06.html), [teacher guide](slides/day06_teacher.md) |
+| 7 | **Algorithms** | Select an untried computer target | [Lesson](days/day07/README.md), [slides](slides/day07.html), [teacher guide](slides/day07_teacher.md) |
+| 8 | **Serialization** | Exchange JSON messages | [Lesson](days/day08/README.md), [slides](slides/day08.html), [teacher guide](slides/day08_teacher.md) |
+| 9 | **Interfaces** | Play through a shared interface | [Lesson](days/day09/README.md), [slides](slides/day09.html), [teacher guide](slides/day09_teacher.md) |
+| 10 | **Testing** | Verify statistics and demonstrate | [Lesson](days/day10/README.md), [slides](slides/day10.html), [teacher guide](slides/day10_teacher.md) |
+
+[Week 2 teaching plan](week02.md) includes preparation, pacing, assessment and an offline fallback. Every lesson has an English HTML deck with a definition, worked example, prediction exercise, application and concept check. The game feature gives the concept a concrete use; other syntax is review or teacher-supplied support.
+
+Open any HTML deck directly in a browser. No network or web server is needed. Keep the whole `slides/` directory together: decks share `theme.css` and `presentation.js`. Day 1's images are embedded. Arrow keys change slides; **N** toggles teacher notes, **O** opens the overview, **F** toggles full screen. Day 1 ends with optional syntax references. Print from the browser for a static copy.
+
+## Setup and completed game
+
+Use Python 3.13 and Pygame 2.6.1. From the repository root:
 
 ```bash
-uv pip install --only-binary=:all: -r teaching/refactored/requirements.txt
+python3.13 -m venv .venv
+source .venv/bin/activate
+python -m pip install --only-binary=:all: -r teaching/requirements.txt
 python teaching/refactored/main.py
 ```
 
-默认与电脑对战。不需要 Tkinter。双方棋盘同时显示，3 艘船长度分别为 4、3、2 格。点击放置，1/2/3 选择船，R 转向；重新选择已经放好的船后，点击新位置即可移动。预览允许临时重叠，只有有效位置才能提交；准备后锁定。按钮提供随机布阵和清空。
+On Windows, activate with `.venv\Scripts\activate` instead. If the environment is already active, only install the requirements and run the game. With `uv`, the equivalent install is `uv pip install --only-binary=:all: -r teaching/requirements.txt`.
 
-计分：首次命中 +10，首次击沉额外 +50，胜利额外 +100。落空和命中都会标记，重复射击不消耗回合。每次有效攻击后交替行动。分数由同一套规则计算。
+The default opponent is the computer; Tkinter is not required. Both boards are visible. Place three ships, with lengths 4, 3 and 2. Click to place, use 1/2/3 to select a ship, and R to rotate. Select an existing ship and click a valid new position to move it. Previewing overlap is allowed, but invalid placement cannot be submitted. Ready locks the fleet. Buttons also randomize or clear the fleet.
 
-本版选择点击放置，不实现连续鼠标拖拽；这样学生先学习格子规则，拖拽可作为课程之后的扩展。
+Each first hit earns 10 points, each first sinking earns an additional 50, and victory adds 100. Misses and hits both leave markers. A repeat shot costs no turn. Every valid shot ends the turn, including a hit. The highest score is `9 × 10 + 3 × 50 + 100 = 340`. Accuracy is hits divided by valid shots, rounded to a whole percent; with no shots it is 0%.
 
-## 双人联机
+Placement uses clicks. Continuous dragging can be a later extension once students understand cell rules.
 
-同一台电脑先开服务器，再开两个终端：
+## Multiplayer
+
+Run each command in a separate terminal with the same Python environment active:
 
 ```bash
 python teaching/refactored/server.py
@@ -27,65 +50,54 @@ python teaching/refactored/main.py --connect 127.0.0.1 --name Alice
 python teaching/refactored/main.py --connect 127.0.0.1 --name Bob
 ```
 
-实际使用时每条命令在独立终端运行，并激活同一个环境。局域网服务器使用 `--host 0.0.0.0`，客户端的 `--connect` 填服务器电脑的局域网 IP。允许系统防火墙接收入站连接，所有电脑使用相同端口（默认65432）。服务器只提供一个双人房间。重开需要双方确认，先手每局轮换；断线后提示退出重连，双方离开后房间清空。本阶段不包含自动断线重连或互联网房间发现。
+For a LAN game, start the server with `--host 0.0.0.0` and replace the clients' `127.0.0.1` with the server computer's LAN IP. Allow inbound connections through its firewall and use the same port on all computers (default **65432**). Day 8's separate message lab uses **65433** and client option `--host`; Days 9–10 use `--connect`.
 
-服务端验证舰队、阶段、回合、坐标和重复射击，负责击沉、胜负和计分。后台网络线程避免阻塞 Pygame 主循环；逐行 JSON 处理 TCP 分段，保留中文与星号。
+The server hosts one room for two players. Both must vote for a rematch; the first player alternates each round. After a disconnect, close and reconnect both clients; the room clears when both players leave. Automatic reconnection and internet room discovery are outside this course.
 
-## 文件职责
+The server validates fleets, phases, turns, coordinates and repeated shots, and computes sinking, victory and scores. Background I/O keeps the Pygame loop responsive. Newline-delimited JSON handles TCP fragmentation and preserves Unicode and asterisks.
 
-| 文件 | 负责什么 |
+## Code responsibilities
+
+| File | Responsibility |
 |---|---|
-| `refactored/board.py` | 船占哪些格、布局是否合法、射击结果、统计 |
-| `refactored/match.py` | 玩家、准备、轮流攻击、胜负、双方同意重开 |
-| `refactored/main.py` | Pygame 画面、操作、人机模式 |
-| `refactored/network.py` | 老师提供的消息格式、收发和后台线程 |
-| `refactored/server.py` | 单个双人房间、连接和比赛锁 |
+| `refactored/board.py` | Occupied cells, valid layouts, shot results, statistics |
+| `refactored/match.py` | Players, readiness, turns, victory and rematch votes |
+| `refactored/main.py` | Pygame drawing, controls and solo mode |
+| `refactored/network.py` | Teacher-supplied framing, sending, receiving and background thread |
+| `refactored/server.py` | One multiplayer room, connections and match lock |
 
-旧项目根目录的入口仍是原版。新教学版全部放在 `teaching/`，请使用这里列出的启动命令。
+The repository-root entry points still run the original game. Use the commands above for the teaching edition.
 
-## 每天独立代码
+## Independent daily projects
 
-`days/day01` 到 `days/day10` 各自包含所需源码和素材，可以单独复制给学生；不依赖前一天或完成版目录。进入当天目录运行 `python main.py`。`starter.py` 是课堂起点，`main.py` 是参考完成版；具体任务见当天 README。
+Each directory from `days/day01` to `days/day10` contains its own source and assets. Copy a whole directory to a student; it has no dependency on neighboring days or `refactored/`. Enter that directory and run `python starter.py` for the class starting point or `python main.py` for the reference result. See each day's README for exact edits.
 
-| 天 | 完成版能力 | 学生重点 | 老师提供 |
-|---|---|---|---|
-| 1 | 海面与舰船 | 输出、变量、类型、坐标、调用与缩进 | 窗口与游戏循环 |
-| 2 | 方向键移动、R转向 | 条件、事件、变量更新 | 图片加载 |
-| 3 | 棋盘与鼠标格子高亮 | 循环、整除、坐标转换 | 窗口基础 |
-| 4 | 点击布阵、合法性预览 | 参数、布尔值、格子集合的概念 | `board.py` 可先作为工具使用 |
-| 5 | 向隐藏舰队射击，记录命中与落空 | 字典、状态、索引、异常反馈 | 已验证的基础规则函数 |
-| 6 | 击沉、胜负、计分和命中率 | 函数组合与统计 | 棋盘辅助代码 |
-| 7 | 双方交替、电脑随机攻击 | 列表、随机数、状态切换 | 已有绘制代码 |
-| 8 | 终端双向消息实验 | 字典、消息字段、JSON概念 | 服务器、线程和网络收发 |
-| 9 | 双人联机完整对局 | 操作请求与状态快照，服务器裁决 | `network.py`、`server.py`、`match.py` 和界面样板 |
-| 10 | 增加完整统计和最近三条战报、打磨展示 | 统计呈现、验证、个性化 | 第9天完整起点 |
+Day 2 explicitly teaches data structures: tuple positions, dictionary ship records and a fleet list; sets are an extension. Day 3 returns to a simplified independent scene to focus on loops.
 
-第5—6天是射击练习模式，完成规则后第7天再加入电脑轮流攻击。第8天刻意脱离游戏画面，先把消息看清楚。第9—10天并非让零基础学生重写网络底层；教师演示集成，学生修改有限的请求字段、显示与统计。第9天已提供随机布阵和双方确认重开，避免课堂对局被操作阻力打断。
+Days 5–6 are shooting practice without an opponent taking turns. Day 7 adds the computer. Day 8 deliberately leaves the graphics behind to make messages visible. Days 9–10 use teacher-supplied networking: students trace requests and change focused pieces of display code. Random fleet placement and two-vote rematches are supplied on Day 9.
 
-每次建议：15分钟试玩/回顾，20分钟新知识，40分钟实现，10分钟休息，25分钟挑战，10分钟展示。知识点可以穿插讲解，避免连讲一小时。
+Suggested two-hour rhythm: 15 minutes play/review, 20 for the core concept, 40 implementation, 10 break, 25 challenge, 10 demonstration. Explain concepts between short experiments.
 
-## 第一天课件与代码对应
+## Day 1 routes
 
-- 推荐课堂路径：`days/day01/increments/README.md`，3个阶段，先体验，再讲场景、变换和键盘控制。
-- 原基础练习：`days/day01/starter.py`，初始只显示海面。
-- 合并完成版：`days/day01/main.py`，支持旋转、缩放、移动和复位。
-- Python 实验：`days/day01/python_basics.py`，不依赖 Pygame，先猜输出再运行。
-- 幻灯片：`slides/day01.html`，包含知识讲解、交互坐标实验、任务、排错、拓展与逐页讲师备注。
-- 讲师手册：`slides/day01_teacher.md`，含120分钟安排与课堂取舍。
+- Recommended: [three incremental experiments](days/day01/increments/README.md), beginning with a short play of the combined version.
+- Original basic task: `days/day01/starter.py`, initially showing only the sea.
+- Combined reference: `days/day01/main.py`, with movement, rotation, scaling and reset.
+- Syntax experiments: `days/day01/python_basics.py`, without Pygame; predict before running.
+- [HTML slides](slides/day01.html): concepts, coordinate lab, tasks, debugging and notes.
+- [Teacher guide](slides/day01_teacher.md): 120-minute schedule and teaching choices.
 
-HTML 坐标实验是浏览器演示，不是 Python 解释器。学生仍在编辑器中修改 Python 文件。游戏界面采用英文短标签，课程说明和讲解用中文，避免不同系统的中文游戏字体差异。
+The browser coordinate lab is a demonstration, not a Python interpreter. Students edit Python in their editor. All course explanations, comments and UI labels are in English.
 
-## 开课前验收
+## Pre-class checks
 
 ```bash
 python -m unittest discover -s teaching/tests -v
 python teaching/refactored/main.py
 ```
 
-确认能关闭窗口、三种船可旋转和重新放置、非法位置不提交、准备后不能改变布局、落空有标记、重复攻击不扣回合、击沉与最终分数正确。然后实际完成一次双客户端对局、一次双方重开、一次断线。最后在两台课堂电脑上验证局域网连接。
+Check closing the window, rotating and repositioning all ships, rejection of invalid placement, fleet locking, miss markers, repeat shots, sinking and the final score. Then complete a real two-client match, a rematch and a disconnect. Test the LAN on two classroom computers before teaching. Automated rules and local connection checks do not replace that classroom check.
 
-本次已通过规则与消息协议的10项测试，以及每天Pygame程序/起始程序的无显示启动检查。当前执行环境禁止本地端口绑定，因此真实客户端联机与局域网对局仍需按上述步骤在本机验收；不能用规则测试替代它。
+## Assets
 
-## 素材来源
-
-海面沿用原项目的 [Water+ / ninjikin](https://ninjikin.itch.io/water)，舰船沿用 [Sea Warfare set](https://opengameart.org/content/sea-warfare-set-ships-and-more)。保留来源署名；本目录不重新声明这些素材的许可证。原项目见仓库根 README。
+The sea comes from the original project's [Water+ by ninjikin](https://ninjikin.itch.io/water); ships come from [Sea Warfare set](https://opengameart.org/content/sea-warfare-set-ships-and-more). Keep these credits. This directory does not relicense the assets. See the repository-root README for the original project.

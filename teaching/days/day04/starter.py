@@ -1,9 +1,9 @@
-"""直接运行：python main.py。--smoke 仅供老师检查启动。"""
+"""Run: python main.py. --smoke is for teacher startup checks."""
 from pathlib import Path
 import sys
 import pygame
 
-# 素材路径由老师准备；从任何目录启动都能找到素材。
+# Teacher-supplied asset paths work from any working directory.
 ASSETS = Path(__file__).resolve().parent / "assets"
 pygame.init()
 screen = pygame.display.set_mode((800, 600))
@@ -25,7 +25,7 @@ while running:
             col = (event.pos[0] - LEFT) // CELL
             row = (event.pos[1] - TOP) // CELL
             if 0 <= col < 10 and 0 <= row < 10:
-                print("列：", col, "行：", row)
+                print("Column:", col, "Row:", row)
     screen.blit(sea, (0, 0))
     for i in range(11):
         pygame.draw.line(screen, "white", (LEFT+i*CELL,TOP), (LEFT+i*CELL,TOP+400))

@@ -1,4 +1,4 @@
-"""棋盘规则：只使用 Python 数据，不依赖 Pygame。坐标为 (列, 行)。"""
+"""Board rules using plain Python data, without Pygame. Coordinates: (column, row)."""
 import random
 
 SIZE = 10
@@ -6,7 +6,7 @@ LENGTHS = {'Carrier': 4, 'Cruiser': 3, 'Scout': 2}
 
 
 def cells(ship):
-    """船的状态只有名字、起点和朝向，长度由规则决定。"""
+    """A ship stores its name, start cell and orientation; the rules determine its length."""
     length = LENGTHS[ship['name']]
     return [(ship['x'] + (0 if ship['vertical'] else i),
              ship['y'] + (i if ship['vertical'] else 0)) for i in range(length)]
@@ -49,7 +49,7 @@ def random_fleet(rng=None):
 
 
 def fire(fleet, shots, x, y):
-    """成功才记录。shots 的键用字符串，便于 JSON 传输。"""
+    """Record only valid shots. String keys in shots can travel as JSON."""
     if type(x) is not int or type(y) is not int or not (0 <= x < SIZE and 0 <= y < SIZE):
         raise ValueError('Aim inside the board.')
     key = f'{x},{y}'

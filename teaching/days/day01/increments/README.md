@@ -1,68 +1,66 @@
-# 第一课：三个阶段，逐步合并
+# Lesson 1: three stages, then combine
 
-窗口、素材路径、时钟与退出循环是老师提供的固定支架，不作为独立小实验。每个阶段有一个完整效果，学生围绕这个效果学习相关知识。
+The window, asset paths, clock and exit loop are teacher-supplied support. Each stage produces a complete visible result; learn the Python needed for that result.
 
-## 先体验完成版，5分钟
+## Play the completed version first
 
 ```bash
 python 03_combined.py
 ```
 
-方向键移动，R旋转，+/-缩放，空格复位。普通键盘的等号键也可以放大。先玩，再问“位置、角度、大小分别由什么数值决定？”
+Play for five minutes: arrows move, R rotates, +/- scales, Space resets. The equals key also enlarges. Ask which numbers control position, angle and size.
 
-## 阶段一：画出场景
+## Stage 1: draw a scene
 
-运行 `python 01_scene.py`，直接看到海面和舰船。
+Run `python 01_scene.py` to see the sea and ship.
 
-- 修改x、y：认识赋值、整数、坐标和元组。
-- 观察load与blit：读取图片与显示图片的区别。
-- 交换海面和舰船两行绘制：理解先后顺序和遮挡。
-- 注释掉海面绘制，再改background：认识注释、RGB颜色。
+- Change x and y: assignment, integers, coordinates and tuples.
+- Compare load with blit: reading an image versus displaying it.
+- Swap the two drawing lines: drawing order and occlusion.
+- Comment out the sea drawing, then change background: comments and RGB colors.
 
-本阶段的位置是图片左上角。窗口初始化和循环先由老师提供，只需知道它们让画面持续显示。
+Position means the image's top-left corner here. The supplied window setup and loop keep the scene visible.
 
-## 阶段二：改变图片
+## Stage 2: transform an image
 
-运行 `python 02_transform.py`，左侧原图，右侧处理结果。
+Run `python 02_transform.py`. The original is on the left and the result on the right.
 
-- 保持angle=0，只修改width、height：按比例放大与拉伸。
-- 固定尺寸，再修改angle：0、90、180、45、-90。
-- 最后同时指定大小与角度：先缩放，再旋转。
-- 对应知识：数字参数、函数调用、返回结果保存为变量。
+- Keep angle=0 and change width/height: proportional enlargement versus stretching.
+- Fix the size and try angles 0, 90, 180, 45 and -90.
+- Specify both size and angle: scale first, then rotate.
+- Connect numeric arguments, function calls and returned results stored in variables.
 
-正角度为逆时针，负角度为顺时针。图片宽高必须是正数。原图20×100；60×300是三倍放大。中心对齐由老师提供，便于比较旋转和缩放的效果。
+Positive angles rotate anticlockwise, negative clockwise. Width and height must be positive. The original is 20×100; 60×300 is three times larger. Center alignment is supplied for easy comparison.
 
-## 阶段三：合并并控制
+## Stage 3: combine and control
 
-运行 `python 03_combined.py`，或者上一级的 `python main.py`。
+Run `python 03_combined.py` or `python main.py` in the parent folder. Follow the Combine A–E comments:
 
-按代码中的合并A—E逐步讲解：
+1. A: position, angle and scale factor are state the program remembers.
+2. B: a key press updates state using if; Space restores defaults.
+3. D: each frame scales and rotates the original using current state.
+4. E: draw sea, then ship, then refresh.
+5. C is optional: check held arrows each frame to preview Day 2 movement.
 
-1. A：位置、角度、缩放倍数是程序需要记住的状态。
-2. B：按一次R或+/-，用if判断按键并更新状态；空格恢复初始值。
-3. D：每一圈根据最新状态，从原图缩放、旋转。
-4. E：先海面、再舰船，最后刷新窗口。
-5. C是选做：每圈检查方向键，持续更新位置，作为第二天的引子。
+Keep one window and one loop. Move the core statements instead of pasting three complete programs together. Initialize variables before while; handle key presses inside the event loop; draw outside for but inside while.
 
-只保留一份窗口和循环，移动各阶段的核心代码，而不是粘贴三个完整文件。变量初始化在while之前，按键判断在事件循环里面，绘制在for外、while内。
+The combined version positions the image by its center so rotation and scaling keep the center fixed. Stage 1 uses the top-left corner: explain this change explicitly. Scale ranges from 0.5 to 4.0. Moving off screen is allowed; Space resets. The teacher explains int, min/max and %360 as supporting tools.
 
-合并版使用图片中心坐标，旋转和缩放时中心保持不动；阶段一用左上角坐标，需要明确说明这个差别。缩放范围0.5—4.0倍；允许移动到窗口外，空格可复位。`int`、`min/max`、`%360`作为辅助知识由老师解释。
+## 120-minute schedule
 
-## 120分钟安排
-
-| 时间 | 活动 |
+| Time | Activity |
 |---|---|
-| 0—10分钟 | 玩完成版，感受旋转、缩放和移动 |
-| 10—35分钟 | 阶段一：显示、位置、图层；每人修改自己的场景 |
-| 35—60分钟 | 阶段二：旋转、缩放；先预测，再对照原图观察 |
-| 60—70分钟 | 休息 |
-| 70—105分钟 | 阶段三：合并核心语句，用按键改变变量；方向键移动选做 |
-| 105—120分钟 | 独立修改与展示，解释一处代码和画面变化 |
+| 0–10 | Play the result: rotation, scaling and movement |
+| 10–35 | Stage 1: display, position and layers; change your own scene |
+| 35–60 | Stage 2: predict transforms, then compare with the original |
+| 60–70 | Break |
+| 70–105 | Stage 3: combine core statements and update variables with keys; movement optional |
+| 105–120 | Independent change and demonstration; explain the code and visible effect |
 
-HTML课件和上一级python_basics.py作为按需取用的知识参考。重点是完整场景与连续练习，不要求背诵初始化支架。
+Use the [HTML deck](../../../slides/day01.html) and `../python_basics.py` as references when needed. Prioritize a complete scene and repeated practice over memorizing setup code.
 
-## 环境和素材
+## Environment and assets
 
-Python 3.13 + Pygame 2.6.1。整个increments目录可以单独复制，带上assets文件夹。三份程序都支持教师用的--smoke参数，仅渲染一圈后退出。
+Python 3.13 + Pygame 2.6.1. Copy the entire increments folder, including assets. All three programs accept the teacher-only `--smoke` option to render one frame and exit.
 
-素材：Water+ / ninjikin（海面），Sea Warfare set（舰船）；来源链接见teaching/README.md。
+Sea: Water+ / ninjikin. Ships: Sea Warfare set. See [course credits](../../../README.md#assets).

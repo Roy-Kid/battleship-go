@@ -1,4 +1,4 @@
-"""服务器和人机模式共用的比赛规则；调用方负责并发锁。"""
+"""Match rules shared by the server and solo mode; callers handle locking."""
 from board import validate_fleet, fire, statistics
 
 

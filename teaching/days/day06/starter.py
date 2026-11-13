@@ -1,4 +1,6 @@
-"""按数字键选船，R 转向，点击左棋盘放置；空格随机，Enter 开始。"""
+"""Day 6 starting point: add victory and statistics to the Day 5 shooting practice.
+Number keys select ships, R rotates, left board places; Space randomizes, Enter starts.
+"""
 from pathlib import Path
 import random
 import sys
@@ -69,6 +71,7 @@ while running:
                 try:
                     result = fire(enemy, shots, (mx-RIGHT)//CELL, (my-TOP)//CELL)
                     message = result['kind'].upper()
+                    # Task 1: finish when statistics(shots)['sunk'] reaches three.
                 except ValueError as error:
                     message = str(error)
     screen.fill((9,28,42))
@@ -89,6 +92,8 @@ while running:
                     pygame.draw.rect(screen,color,(LEFT+x*CELL+2,TOP+y*CELL+2,CELL-4,CELL-4),3)
         text('Selected: '+selected, LEFT, 525)
         text('ENTER: lock fleet and start', RIGHT, 525)
+    # Task 2: use statistics(shots) and text to show score, hits/shots and accuracy.
+    # Derive the victory bonus from phase; do not accumulate it each frame.
     text(message, LEFT, 30)
     pygame.display.flip()
     if '--smoke' in sys.argv:

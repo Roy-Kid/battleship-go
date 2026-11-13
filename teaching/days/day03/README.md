@@ -1,29 +1,46 @@
-# 第3天：画出棋盘
+# Day 3: Loops
 
-本课2小时。知识：for、range、整除、行列坐标。
+Two hours. Core programming concept: **loops**. Other syntax is review or teacher-supplied support.
 
-## 运行
+## Core concept: loops
 
-在已激活的Python 3.13环境中进入本目录：
+**Definition:** A loop repeats a block of instructions. A for loop visits each item in an iterable, such as range(11).
+
+**Example:**
+
+```python
+for i in range(11):
+    print(i)  # 0 through 10: eleven iterations
+```
+
+**Explain it:** Why does a ten-cell board need eleven boundary lines? What changes if range(11) becomes range(10)?
+
+The game feature is an application of this concept. Assess whether you can explain and use the concept, as well as run the game.
+
+## Run
+
+Enter this directory in an active Python 3.13 environment:
 
 ```bash
+python starter.py
+# Reference result:
 python main.py
 ```
 
-`starter.py` 是课堂起点，`main.py` 是参考完成版。从上一天的可运行程序开始，新增本课功能。
+`starter.py` is the classroom starting point; `main.py` is the reference solution. This is a simplified independent scene so today can focus on repetition.
 
-## 学生任务
+## Student tasks
 
-画11条横线和11条竖线；把鼠标像素坐标换成列和行；有效格子高亮。
+Draw 11 horizontal and 11 vertical boundaries with a loop. Explain the first and last iteration and predict what range(10) changes. Use the supplied mouse-cell conversion and highlight to see the board redraw during interaction.
 
-## 老师提供
+## Teacher supplied
 
-使用矩形窗口；先不讲复杂容器和继承。
+The teacher supplies the window, mouse-coordinate conversion and valid-cell highlight from main.py. Students explain and write the repeated drawing; complex containers and inheritance can wait.
 
-## 挑战与验收
+## Challenge and checks
 
-点击打印坐标；解释为什么棋盘外不应打印合法目标。
+Print coordinates on click. Explain why clicking outside the board should not produce a valid target.
 
-先说预测，运行验证，再解释原因。每次保存一个可运行版本。本目录包含独立素材，可单独复制；无需访问相邻天的目录。
+Predict, run, then explain. Save a working version after each step. This folder includes independent source and assets; copy it whole without neighboring day folders.
 
-素材：Water+ / ninjikin（海面）；Sea Warfare set（舰船）。具体来源见teaching/README.md。
+Sea: Water+ / ninjikin. Ships: Sea Warfare set. See [course credits](../../README.md#assets).

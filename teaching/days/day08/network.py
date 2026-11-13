@@ -1,4 +1,4 @@
-"""老师提供：逐行 JSON 消息；独立线程收发，界面只读快照。"""
+"""Teacher supplied: newline-delimited JSON; background I/O, snapshots for the UI."""
 import json
 import queue
 import socket
