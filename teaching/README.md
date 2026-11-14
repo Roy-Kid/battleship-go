@@ -72,7 +72,7 @@ The repository-root entry points still run the original game. Use the commands a
 
 Each directory from `days/day01` to `days/day10` contains its own source and assets. Copy a whole directory to a student; it has no dependency on neighboring days or `refactored/`. Enter that directory and run `python starter.py` for the class starting point or `python main.py` for the reference result. See each day's README for exact edits.
 
-Day 2 explicitly teaches data structures: tuple positions, dictionary ship records and a fleet list; sets are an extension. Day 3 returns to a simplified independent scene to focus on loops.
+Day 2 applies data structures to the game board. A tuple selects a cell, a dictionary controls ship placement and orientation, and a list organizes the fleet. Sets are an extension. Day 3 returns to a simplified independent scene to focus on loops.
 
 Days 5–6 are shooting practice without an opponent taking turns. Day 7 adds the computer. Day 8 deliberately leaves the graphics behind to make messages visible. Days 9–10 use teacher-supplied networking: students trace requests and change focused pieces of display code. Random fleet placement and two-vote rematches are supplied on Day 9.
 
@@ -91,7 +91,7 @@ The browser coordinate lab is a demonstration, not a Python interpreter. Student
 
 ## Day 2 incremental route
 
-Follow the [Day 2 increments](days/day02/increments/README.md) with the [data structures slides](slides/day02.html). Predict and run the existing terminal examples, then apply a position tuple, one ship dictionary, and a list of two separate ship records in three runnable checkpoints. The last checkpoint is the existing Day 2 `main.py`. Sets remain optional; controls and drawing are supplied support.
+Follow the [Day 2 increments](days/day02/increments/README.md) with the [data structures slides](slides/day02.html). Predict and run the existing terminal examples, then apply a board-cell tuple, one ship dictionary, and a list of two separately placed ships in three runnable checkpoints. The last checkpoint is the existing Day 2 `main.py`. Sets remain optional; controls and drawing are supplied support.
 
 The guide maps the code to slide numbers, includes acceptance checks and follows the deck's 120-minute sequence. Copy the whole `increments/` directory for standalone use, including its local assets and requirements.
 

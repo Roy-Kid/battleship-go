@@ -1,49 +1,15 @@
-# Day 2 teacher guide: Data structures
+# Lesson 2 teacher guide — Data structures on the board
 
-**One core concept: data structures.** A data structure organizes related values and gives us a way to access and update them.
+Open the fleet checkpoint first and point to the live data panel. Ask students to predict which occupied cells change when x, y or vertical changes. Define a data structure, then connect each structure to that prediction.
 
-[Student lesson](../days/day02/README.md) · [Slides](day02.html). Audience: 3–5 beginner students around age 15. Duration: 120 minutes.
+The tuple represents a board cell, the dictionary represents a ship and the list contains separate ship dictionaries. Coordinates are zero-based columns and rows. The Scout length is two cells and the Cruiser length is three. Lengths and placement validation use the existing board.py rules.
 
-## Preparation
+Use the incremental guide for the two-hour schedule and acceptance checks. Slides 5, 14 and 16 contain actual screenshots captured from the Python checkpoints. The white outline identifies the selected starting cell. Gold outlines identify the selected ship and green outlines identify other ships.
 
-Copy the entire daily directory, including assets. Run its starter and reference with the course Python environment. Open the HTML deck with the shared theme.css and presentation.js alongside it. N shows slide notes. Introduce the definition before showing game code.
+The core demonstration moves a horizontal Scout from `(2, 3)` to `(4, 1)`, then rotates it. Its occupied cells change from `[(2, 3), (3, 3)]` to `[(4, 1), (5, 1)]`, then to `[(4, 1), (4, 2)]`. Have students state each prediction before clicking.
 
-Use the [incremental checkpoints](../days/day02/increments/README.md) alongside the deck. Run `data_structures.py` for slides 5–13, use `01_position.py` and `02_ship_record.py` for the one-ship application on slide 14, then `03_fleet.py` for slides 16–17. Slide 18's set example stays optional. Each checkpoint is complete and runnable; the last is the existing Day 2 reference. The incremental guide gives a slide-aligned schedule with the break at minutes 75–85.
+For the fleet task select index 1 and place the Cruiser at `(6, 2)`. It occupies `[(6, 2), (6, 3), (6, 4)]`. Verify the Scout remains at its previous position. Try an overlapping placement and an edge placement. Rejection must leave the saved record unchanged.
 
-Lesson 1 already demonstrated movement, rotation, scaling and reset. Do not introduce those again as today's new material. Keep event handling, boundary checks and drawing supplied; students change the representation and access of the data.
+The teacher supplies window setup, rendering, mouse conversion and calls to cells/can_place. Students focus on choosing structures, accessing entries and changing records. The optional set exercise stays in the terminal examples.
 
-## Two-hour schedule
-
-| Minutes | Activity | Evidence |
-|---|---|---|
-| 0–15 | Recall the previous concept and show today's game result | Student identifies the data being changed |
-| 15–35 | Inspect tuple, list and dictionary examples | Prediction before execution |
-| 35–75 | Group one ship, then store two records | Working student change |
-| 75–85 | Break | Saved source |
-| 85–110 | Predict nested updates and explain choices | Recorded expected/actual behavior |
-| 110–120 | Explain the concept and demonstrate | Independent exit answer |
-
-## Example and explanation
-
-```python
-ship = {'name': 'Scout', 'x': 200, 'y': 180}
-fleet = [ship]
-fleet[0]['x'] += 40
-print(fleet[0]['x'])  # 240
-```
-
-Ask students to predict, run and explain this example before applying it to the game. Keep unfamiliar event, drawing and timing support supplied. Use the student lesson for the exact game edits.
-
-Exit question: Explain why a ship uses a dictionary, a fleet uses a list, and a position can use a tuple.
-
-## Assessment
-
-Minimum: explain the definition in their own words and complete the smallest example with guidance. Standard: independently apply it to the game and justify the expected result. Extension: transfer the concept to a second example. Ask questions while a partner diagnoses; each student saves and explains their own file.
-
-## Data-structure teaching choices and answer key
-
-Tuple: ordered entries cannot be replaced; use a new tuple to express a new position. List: ordered, mutable sequence for multiple ships. Dictionary: key-based access to fields of one ship. The core practice covers those three; sets are optional for distinct target cells. Do not require event-handling, loop writing, copying semantics or algorithmic complexity today.
-
-The nested-access prediction prints 2, 240, 500, 240. fleet[0] and ship refer to the same dictionary. Two references to one dictionary are not two independent ships; create two records. A dictionary preserves insertion order, but its teaching purpose here is named access. Explain KeyError versus IndexError through one small example, without derailing the core task.
-
-The starter is a working scalar version with keyboard support. Let students refactor one record first. Supply the fleet drawing/selection block when moving to two ships. The image is ship_image; the data record is ship. Pixel x/y values here differ from grid-cell coordinates in Day 4.
+[Incremental tasks and schedule](../days/day02/increments/README.md)

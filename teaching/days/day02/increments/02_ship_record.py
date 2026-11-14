@@ -1,57 +1,88 @@
-"""Day 2, step 2: group one ship's fields in a dictionary.
-Run: python 02_ship_record.py
-Focus: named fields, dictionary updates and a position tuple for drawing.
+"""Day 2 checkpoint 2. Click the 10x10 board and inspect the data.
+Coordinates are zero-based (column, row). Drawing and placement checks are supplied.
 """
 from pathlib import Path
 import sys
 import pygame
+from board import SIZE, LENGTHS, cells, can_place
 
-# [Teacher supplied] Keep the same window, assets, controls and boundaries.
+# Teacher supplied. The visible grid uses the same cell rules as later lessons.
 ASSETS = Path(__file__).resolve().parent / 'assets'
+CELL, LEFT, TOP = 40, 60, 110
 pygame.init()
-screen = pygame.display.set_mode((800, 600))
-pygame.display.set_caption('Day 2 | 02 Ship dictionary')
+screen = pygame.display.set_mode((1000, 650))
+pygame.display.set_caption('Battleship Lab | Data on the board')
+font = pygame.font.Font(str(ASSETS / 'font.ttf'), 17)
+small = pygame.font.Font(str(ASSETS / 'font.ttf'), 14)
 clock = pygame.time.Clock()
-sea = pygame.image.load(str(ASSETS / 'sea.png'))
-sea = pygame.transform.scale(sea, (800, 600))
-# The image and the data record have different responsibilities and names.
-ship_image = pygame.image.load(str(ASSETS / 'ship.png'))
-ship_image = pygame.transform.scale(ship_image, (48, 144))
+water = pygame.image.load(str(ASSETS / 'sea.png')).convert()
+water = pygame.transform.scale(water, (400, 400))
+ship_image = pygame.image.load(str(ASSETS / 'ship.png')).convert_alpha()
 
-# [Focus A] String keys describe the fields belonging to one ship.
-ship = {'name': 'Scout', 'x': 200, 'y': 180, 'vertical': True}
-speed = 4
-
+TITLE = '02 Dictionary places a ship'
+ship = {'name': 'Scout', 'x': 2, 'y': 3, 'vertical': False}
+selected = 0
+notice = 'Click a grid cell to change the data.'
 running = True
 while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
         if event.type == pygame.KEYDOWN and event.key == pygame.K_r:
-            ship['vertical'] = not ship['vertical']
-
-    keys = pygame.key.get_pressed()
-    # [Focus B] Change a named field directly; the other fields stay unchanged.
-    if keys[pygame.K_LEFT]:
-        ship['x'] -= speed
-    if keys[pygame.K_RIGHT]:
-        ship['x'] += speed
-    if keys[pygame.K_UP]:
-        ship['y'] -= speed
-    if keys[pygame.K_DOWN]:
-        ship['y'] += speed
-
-    # [Teacher supplied] The existing controls now read the record's fields.
-    picture = ship_image if ship['vertical'] else pygame.transform.rotate(ship_image, 90)
-    ship['x'] = max(0, min(ship['x'], 800-picture.get_width()))
-    ship['y'] = max(0, min(ship['y'], 600-picture.get_height()))
-    screen.blit(sea, (0, 0))
-    # [Focus C] A dictionary describes the ship; a tuple describes its position.
-    position = (ship['x'], ship['y'])
-    screen.blit(picture, position)
+            current = ship
+            candidate = {**current, 'vertical': not current['vertical']}
+            if can_place([ship], candidate, ignore=current['name']):
+                current['vertical'] = candidate['vertical']
+                notice = 'Orientation updated in the dictionary.'
+            else:
+                notice = 'Rotation rejected by the supplied placement rule.'
+        if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+            mx, my = event.pos
+            if LEFT <= mx < LEFT + 400 and TOP <= my < TOP + 400:
+                # Teacher supplied. Convert pixels to a board cell.
+                clicked = ((mx - LEFT) // CELL, (my - TOP) // CELL)
+                current = ship
+                candidate = {**current, 'x': clicked[0], 'y': clicked[1]}
+                if can_place([ship], candidate, ignore=current['name']):
+                    # Student focus. Update the selected record's named fields.
+                    current['x'], current['y'] = clicked
+                    notice = 'Ship data updated. Its occupied cells moved.'
+                else:
+                    notice = 'Placement rejected. Ships must fit without overlap.'
+    records = [ship]
+    current = records[selected]
+    position = (current['x'], current['y'])
+    panel = ['Ship dictionary', f'selected = {selected}', f"name = {current['name']!r}", f"x = {current['x']}", f"y = {current['y']}", f"vertical = {current['vertical']}", '', f'position = {position}', f'cells = {cells(current)}', '', 'Edit a record and predict the cells.']
+    # Teacher supplied. Draw records using cells(), the existing board rule.
+    screen.fill((9, 28, 42))
+    screen.blit(font.render(TITLE, True, (250, 195, 88)), (LEFT, 25))
+    screen.blit(water, (LEFT, TOP))
+    for i in range(SIZE + 1):
+        pygame.draw.line(screen, (135, 185, 200),
+                         (LEFT + i * CELL, TOP), (LEFT + i * CELL, TOP + 400))
+        pygame.draw.line(screen, (135, 185, 200),
+                         (LEFT, TOP + i * CELL), (LEFT + 400, TOP + i * CELL))
+    for i in range(SIZE):
+        screen.blit(small.render(str(i), True, 'white'), (LEFT + i * CELL + 16, TOP - 25))
+        screen.blit(small.render(str(i), True, 'white'), (LEFT - 25, TOP + i * CELL + 12))
+    for index, record in enumerate(records):
+        length = LENGTHS[record['name']]
+        picture = pygame.transform.scale(ship_image, (CELL - 10, length * CELL - 10))
+        if not record['vertical']:
+            picture = pygame.transform.rotate(picture, 90)
+        screen.blit(picture, (LEFT + record['x'] * CELL + 5, TOP + record['y'] * CELL + 5))
+        color = (250, 195, 88) if index == selected else (100, 224, 164)
+        for col, row in cells(record):
+            pygame.draw.rect(screen, color,
+                             (LEFT + col * CELL + 2, TOP + row * CELL + 2, CELL - 4, CELL - 4), 2)
+    pygame.draw.rect(screen, (255, 255, 255),
+                     (LEFT + position[0] * CELL + 1, TOP + position[1] * CELL + 1, CELL - 2, CELL - 2), 3)
+    for i, line in enumerate(panel):
+        screen.blit(small.render(line, True, (229, 242, 239)), (500, 115 + i * 29))
+    screen.blit(font.render(notice, True, (250, 195, 88)), (LEFT, 555))
+    screen.blit(small.render('Click a cell | R rotates | 1/2 selects a ship in Step 3', True, 'white'), (LEFT, 595))
     pygame.display.flip()
     clock.tick(60)
     if '--smoke' in sys.argv:
         running = False
-
 pygame.quit()
