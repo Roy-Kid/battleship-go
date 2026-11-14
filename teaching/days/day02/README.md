@@ -27,12 +27,23 @@ A list answers “which numbered item?” A dictionary answers “which named fi
 
 [Slides](../../slides/day02.html) · [Teacher guide](../../slides/day02_teacher.md).
 
+Use the [incremental experiments](increments/README.md) for the guided game task: position tuple → one ship dictionary → a list of two ship records. The guide maps each checkpoint to the Day 2 slides and follows their 120-minute sequence. Controls are already supplied; the new work is organizing and accessing data.
+
 With the course Python environment active, enter this folder:
 
 ```bash
 python data_structures.py  # Predict, then run each section
 python starter.py          # Scalar-value starting point, controls supplied
 python main.py             # Reference: fleet list containing two ship dictionaries
+```
+
+The same game application is split into runnable checkpoints:
+
+```bash
+python increments/00_scalars.py
+python increments/01_position.py
+python increments/02_ship_record.py
+python increments/03_fleet.py
 ```
 
 The game uses pixel coordinates today. In later board lessons x/y denote column/row cells. `main.py` uses 1/2 to select a ship, arrows to move and R to rotate; both ships stay inside the window.

@@ -89,6 +89,12 @@ Suggested two-hour rhythm: 15 minutes play/review, 20 for the core concept, 40 i
 
 The browser coordinate lab is a demonstration, not a Python interpreter. Students edit Python in their editor. All course explanations, comments and UI labels are in English.
 
+## Day 2 incremental route
+
+Follow the [Day 2 increments](days/day02/increments/README.md) with the [data structures slides](slides/day02.html). Predict and run the existing terminal examples, then apply a position tuple, one ship dictionary, and a list of two separate ship records in three runnable checkpoints. The last checkpoint is the existing Day 2 `main.py`. Sets remain optional; controls and drawing are supplied support.
+
+The guide maps the code to slide numbers, includes acceptance checks and follows the deck's 120-minute sequence. Copy the whole `increments/` directory for standalone use, including its local assets and requirements.
+
 ## Pre-class checks
 
 ```bash

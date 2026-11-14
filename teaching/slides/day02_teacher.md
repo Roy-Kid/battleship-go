@@ -8,6 +8,10 @@
 
 Copy the entire daily directory, including assets. Run its starter and reference with the course Python environment. Open the HTML deck with the shared theme.css and presentation.js alongside it. N shows slide notes. Introduce the definition before showing game code.
 
+Use the [incremental checkpoints](../days/day02/increments/README.md) alongside the deck. Run `data_structures.py` for slides 5–13, use `01_position.py` and `02_ship_record.py` for the one-ship application on slide 14, then `03_fleet.py` for slides 16–17. Slide 18's set example stays optional. Each checkpoint is complete and runnable; the last is the existing Day 2 reference. The incremental guide gives a slide-aligned schedule with the break at minutes 75–85.
+
+Lesson 1 already demonstrated movement, rotation, scaling and reset. Do not introduce those again as today's new material. Keep event handling, boundary checks and drawing supplied; students change the representation and access of the data.
+
 ## Two-hour schedule
 
 | Minutes | Activity | Evidence |
