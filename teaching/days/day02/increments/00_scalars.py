@@ -1,4 +1,4 @@
-"""Day 2 checkpoint 0. Click the 10x10 board and inspect the data.
+"""Day 2 scalar comparison for PPT 4. Demonstrate for at most two minutes.
 Coordinates are zero-based (column, row). Drawing and placement checks are supplied.
 """
 from pathlib import Path

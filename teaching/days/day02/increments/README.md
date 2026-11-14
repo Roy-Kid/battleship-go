@@ -1,91 +1,90 @@
-# Lesson 2 — Data structures on the Battleship board
+# Lesson 2 — File and slide edit guide
 
-A data structure organizes related values and provides operations to access or update them. This lesson applies tuples, dictionaries and lists to a visible 10×10 game board.
+The core route uses three runnable checkpoints. Scalar and tuple work share one ten-minute activity. The main editing time is for dictionary fields and independent records in a fleet list.
 
-## Run the checkpoints
+## Prepare the files
 
-Activate the course Python environment and enter this directory.
+Copy this entire increments directory with assets, board.py and requirements.txt. Use Python 3.13 with the pinned Pygame dependency. Run commands from this directory.
 
 ```bash
-python data_structures.py
-python 00_scalars.py
 python 01_position.py
 python 02_ship_record.py
 python 03_fleet.py
 ```
 
-Copy this entire directory with its assets, board.py and requirements.txt for independent use. Install the pinned dependency with `python -m pip install -r requirements.txt` if needed.
+Keep personal working copies. For each source edit, predict the board result, save, close the old game window and restart the same file. The line numbers below refer to the distributed files. The EDIT/READ comments remain searchable if students insert their own lines.
 
-## The data controls the board
+## Every task maps to its file and slide
 
-Coordinates are zero-based `(column, row)` pairs. `(2, 3)` identifies column 2 and row 3. A ship's x/y fields store its starting cell. The supplied renderer converts those cells into pixels.
+| Task | PPT page | Python file | Line(s) | Change or action | Expected board result |
+|---|---|---|---|---|---|
+| A1/A2 | 4 | 01_position.py | 24 | (2,3) → (4,1), then (1,4) | White cell outline moves to each tuple coordinate. |
+| B1 | 5 | 02_ship_record.py | 26–27 | x=4, y=1 | Horizontal Scout covers (4,1), (5,1). |
+| B2 | 6 | 02_ship_record.py | 28 | vertical=True, keeping B1 | Scout covers (4,1), (4,2). |
+| B3 | 7 | 02_ship_record.py | 25 | name='Cruiser', keeping B1/B2 | Cruiser covers (4,1), (4,2), (4,3). |
+| B4 | 8 | 02_ship_record.py | 56 (read) | Click (6,2), keeping the B3 file | During this run Cruiser covers (6,2), (6,3), (6,4). |
+| C1 | 10 | 03_fleet.py | 26 | Second record x=6, y=2 | Cruiser moves. Scout stays at (2,3), (3,3). |
+| C2 | 11 | 03_fleet.py | 29 | selected=1, keeping C1 | Cruiser gets the gold selection outline. Positions stay the same. |
+| C3 | 12 | 03_fleet.py | 25 | First record x=4, y=1, keeping C1/C2 | Scout moves to (4,1), (5,1). Cruiser keeps its C1 cells. |
+| D | 13 | 03_fleet.py | 55–57 (read) | Press 1. Click (6,2), then (9,9). | Both clicks are rejected. Scout keeps its C3 data and cells. |
 
-| Checkpoint | Student data | Visible game behavior |
-|---|---|---|
-| 00 | Separate column and row values | A white outline marks one board cell |
-| 01 | `position = (2, 3)` | Clicking another cell replaces the tuple and moves the outline |
-| 02 | One ship dictionary | x/y place the ship, its name determines length, vertical controls orientation |
-| 03 | A fleet list with two independent records | 1/2 selects a record, clicking moves its ship, R rotates it |
+## A1/A2 — Compact scalar and tuple activity
 
-The right-hand panel displays current data and occupied cells. Students can compare a changed value with the exact board change.
+Spend at most two minutes comparing `00_scalars.py` line 23, `col, row = 2, 3`, with `01_position.py` line 24, `position = (2, 3)`. Both select one cell. Students make their edits in 01_position.py.
 
-## Step 1 — A tuple selects a cell
+At line 24, replace the starting tuple with `(4, 1)`. Save and restart to see the white outline at column 4 and row 1. Replace it again with `(1, 4)` and repeat. Index 0 is the column and index 1 is the row. The tuple is an ordered sequence whose entries cannot be replaced individually. Assign a new tuple to express a new pair.
 
-Run `01_position.py`. Predict where the outline appears for `position = (2, 3)`, then click `(4, 1)`. Read the panel and explain how both tuple entries changed. In the source, change the initial tuple and run again. Tuple entries cannot be assigned individually. Assign a new tuple to select another cell.
+## B1–B4 — Change one ship dictionary
 
-## Step 2 — A dictionary describes a ship
+Open 02_ship_record.py with its supplied default record. Keep edits B1, B2 and B3 cumulatively in this file.
 
-Run `02_ship_record.py`.
+1. B1 changes lines 26–27 to `'x': 4,` and `'y': 1,`. The Scout moves horizontally from `[(2, 3), (3, 3)]` to `[(4, 1), (5, 1)]`.
+2. B2 changes line 28 to `'vertical': True,`. Its start stays `(4, 1)` and its cells become `[(4, 1), (4, 2)]`.
+3. B3 changes line 25 to `'name': 'Cruiser',`. Keep the B1/B2 fields. The existing LENGTHS rule now gives three cells, `[(4, 1), (4, 2), (4, 3)]`.
+4. B4 reads line 56 and requires no source edit. Click `(6, 2)` during the B3 run. The accepted click updates the same dictionary and moves its cells to `[(6, 2), (6, 3), (6, 4)]`. Restarting reads the saved source record at `(4, 1)` again.
 
-```python
-ship = {'name': 'Scout', 'x': 2, 'y': 3, 'vertical': False}
-```
+A dictionary maps unique keys to values. Students identify which field caused each visible change. Read the existing input and drawing support to trace the effect.
 
-The Scout occupies `(2, 3)` and `(3, 3)`. Change x to 4 and y to 1, or click that cell. It now occupies `(4, 1)` and `(5, 1)`. Press R to update vertical and observe `(4, 1)` and `(4, 2)`. The panel lists the cells for direct comparison.
+## C1–D — Edit independent records in a fleet list
 
-Change name to `Cruiser` while the ship has room. Its length changes from two cells to three using the existing LENGTHS rule. Record one prediction before changing each field.
+Open 03_fleet.py fresh. This separate checkpoint has its own initial Scout and Cruiser records. Keep C1, C2 and C3 cumulatively in this file.
 
-## Step 3 — A list organizes the fleet
+1. C1 edits only the second record at line 26 to `{'name': 'Cruiser', 'x': 6, 'y': 2, 'vertical': True},`. Scout keeps its initial two cells.
+2. C2 edits line 29 to `selected = 1`. Cruiser gets the selection outline and data panel. This changes the selected list index while both positions remain the same.
+3. C3 edits only the first record at line 25 to `{'name': 'Scout', 'x': 4, 'y': 1, 'vertical': False},`. Scout moves, while Cruiser keeps the C1 cells. Press 1 to inspect Scout in the panel.
+4. D requires no source edit. Read lines 55–57. With the saved C3 data, press 1 and click `(6, 2)` to attempt overlap, then `(9, 9)` to attempt an edge placement. Both must preserve Scout at `(4, 1)`.
 
-Run `03_fleet.py`. The initial fleet contains a horizontal Scout at `(2, 3)` and a vertical Cruiser at `(5, 6)`.
+A list is an ordered mutable sequence. Indices 0 and 1 choose different dictionary records. The game panel prints the selected record and its exact occupied cells.
 
-1. Press 2 to choose `fleet[1]`, then click `(6, 2)`.
-2. Verify that the Cruiser occupies `(6, 2)`, `(6, 3)` and `(6, 4)`.
-3. Verify that `fleet[0]` still occupies `(2, 3)` and `(3, 3)`.
-4. Press 1 and try placing the Scout on the Cruiser. Read the rejection message and confirm that the saved record stays at its valid position.
-5. Try placing a horizontal Scout at `(9, 9)`. Explain why it would leave the board.
+## Optional terminal examples
 
-Two list entries need separate dictionaries for independent ships. Predict the effect of `fleet = [ship, ship]` using the terminal examples.
+| PPT page | File and line | Student edit | Expected output and board effect |
+|---|---|---|---|
+| 15 | data_structures.py line 14 | Change append argument from Carrier to Rescue | Three names ending in Rescue. The running board is unchanged. |
+| 16 | data_structures.py line 25 | Change assigned x from 6 to 7 | Both references to the first dictionary report 7. The second record keeps x=5. The running board is unchanged. |
+| 17 | data_structures.py line 32 | Add the tuple (6,2) | Three distinct targets. The running board is unchanged. |
 
-## Course task coverage
+These examples run separately from the required game tasks. A set stores distinct values without positional indexing. It is an extension for this lesson.
 
-| Task | Material | Evidence |
-|---|---|---|
-| Tuple lookup and reassignment | 01 and terminal examples | Predict and select a specific cell |
-| Dictionary lookup and field updates | 02 | Change location, length and orientation on the board |
-| List indexing and nested access | 03 | Move one fleet member independently |
-| List append and len | Terminal examples | Explain the item count after append |
-| Shared references | Terminal examples and slide 12 | Explain why two references can change together |
-| Structure choice and access errors | Slides 17–20 | Justify choices and diagnose one error |
-| Optional set deduplication | Terminal examples and slide 18 | Repeated target coordinates count once |
+## Two-hour schedule
 
-## Two-hour lesson
-
-| Minutes | Activity |
+| Minutes | Slides and work |
 |---|---|
-| 0–15 | Demonstrate 03 and identify the data shown beside the board |
-| 15–35 | Definitions and small tuple, list and dictionary examples |
-| 35–60 | Predict nested updates and shared references |
-| 60–75 | Apply 01 and 02, matching slides 5 and 14 |
-| 75–85 | Break |
-| 85–100 | Apply 03, matching slide 16, then verify the occupied cells |
-| 100–110 | Optional set example and access-error exercise |
-| 110–120 | Each student demonstrates a data edit and explains the board change |
+| 0–10 | Pages 1–3, demonstrate the final board and define the structures |
+| 10–20 | Page 4, compact scalar comparison and tuple edits A1/A2 |
+| 20–35 | Page 5, dictionary position edit B1 |
+| 35–45 | Page 6, orientation edit B2 |
+| 45–60 | Page 7, ship-name and length edit B3 |
+| 60–75 | Page 8, runtime click trace B4 and individual checks |
+| 75–85 | Page 9, break |
+| 85–100 | Pages 10–11, second fleet record and selected index C1/C2 |
+| 100–110 | Pages 12–13, independent first-record edit C3 and rejection checks D |
+| 110–120 | Page 14, individual demonstration and explanation |
 
-Window handling, mouse conversion, drawing and placement checks are teacher supplied. board.py is copied from the existing Day 4 rules so cells, lengths and valid placements follow the rest of the game. Each graphical file supports `--smoke` for a one-frame startup check.
+Pages 15–17 are optional references. Each student shows the edited source line, predicts the cells, runs the file and compares the board with the prediction.
 
-Exit task — choose a position tuple, one ship dictionary and a fleet list, then demonstrate an update to each on the board.
+The renderer and input support are supplied. Existing cells/can_place behavior is reused from board.py. main.py matches 03_fleet.py. starter.py matches the scalar comparison.
 
-[Course slides](../../../slides/day02.html)
+[Open the English slide deck](../../../slides/day02.html)
 
-Sea assets come from Water+ by ninjikin. Ship assets come from Sea Warfare set. Source links and credits are in the course README.
+Sea assets come from Water+ by ninjikin. Ship assets come from Sea Warfare set. Course credits contain their source links.

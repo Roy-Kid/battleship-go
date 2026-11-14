@@ -20,7 +20,13 @@ water = pygame.transform.scale(water, (400, 400))
 ship_image = pygame.image.load(str(ASSETS / 'ship.png')).convert_alpha()
 
 TITLE = '02 Dictionary places a ship'
-ship = {'name': 'Scout', 'x': 2, 'y': 3, 'vertical': False}
+# EDIT B1-B3 — PPT 5-7. Change only the named fields in this record.
+ship = {
+    'name': 'Scout',
+    'x': 2,
+    'y': 3,
+    'vertical': False,
+}
 selected = 0
 notice = 'Click a grid cell to change the data.'
 running = True
@@ -32,6 +38,7 @@ while running:
             current = ship
             candidate = {**current, 'vertical': not current['vertical']}
             if can_place([ship], candidate, ignore=current['name']):
+                # READ B2 — PPT 6. R updates the orientation field.
                 current['vertical'] = candidate['vertical']
                 notice = 'Orientation updated in the dictionary.'
             else:
@@ -45,6 +52,7 @@ while running:
                 candidate = {**current, 'x': clicked[0], 'y': clicked[1]}
                 if can_place([ship], candidate, ignore=current['name']):
                     # Student focus. Update the selected record's named fields.
+                    # READ B4 — PPT 8. A valid click updates these two fields.
                     current['x'], current['y'] = clicked
                     notice = 'Ship data updated. Its occupied cells moved.'
                 else:

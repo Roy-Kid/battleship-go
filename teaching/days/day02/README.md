@@ -1,42 +1,22 @@
-# Lesson 2 — Data structures
+# Lesson 2 — Data structures on the board
 
-The lesson uses a visible 10×10 Battleship board. A tuple selects a cell, a dictionary describes a ship and a list organizes the fleet. The game shows current values and occupied cells beside the board.
+Use the slide deck and incremental edit guide together. Each classroom task specifies the Python file, exact line numbers, replacement data and expected occupied cells.
 
-## Definitions
+The main route is 01_position.py → 02_ship_record.py → 03_fleet.py. The scalar comparison and tuple edits share a ten-minute warm-up. Dictionary and fleet tasks take most of the lesson.
 
-| Structure | Definition | Board application |
+| PPT pages | File | Focus |
 |---|---|---|
-| tuple | An ordered sequence whose entries cannot be replaced | A `(column, row)` pair |
-| dict | A mapping from unique keys to values | A ship's name, x, y and orientation |
-| list | An ordered mutable sequence | Multiple independent ship records |
-| set | A collection of distinct values | Optional example of unique target cells |
+| 4 | increments/01_position.py line 24 | Select a board cell with a tuple |
+| 5–8 | increments/02_ship_record.py | Move, rotate and change the type of one ship |
+| 10–13 | increments/03_fleet.py | Change selected fleet records and verify independence |
+| 15–17, optional | increments/data_structures.py | List operations, shared references and sets |
 
-## Start the game
+Run the files in the order above using the course Python environment. Save and restart after source edits. Keep B1–B3 edits in the dictionary file, then open the fleet file fresh and keep C1–C3 edits there. Tasks B4 and D observe runtime behavior and require no source edits.
 
-```bash
-python starter.py
-python main.py
-```
+[Exact edit instructions and expected board changes](increments/README.md)
 
-The starter displays separate coordinates on the board. main.py is the completed fleet-placement example. Click a cell to place the selected ship, press R to rotate and use 1/2 to choose a ship. x/y values are zero-based column/row coordinates. The supplied rules reject overlap and out-of-bounds placement.
-
-## Incremental classroom route
-
-```bash
-python increments/00_scalars.py
-python increments/01_position.py
-python increments/02_ship_record.py
-python increments/03_fleet.py
-```
-
-For a concrete experiment, the horizontal Scout at `(2, 3)` covers `(2, 3)` and `(3, 3)`. Move it to `(4, 1)` and predict its new cells. Rotate it and compare the two cells again. Then select the Cruiser through fleet[1] and verify that moving it leaves the Scout's record unchanged.
-
-Minimum outcome is a tuple selecting a cell and a dictionary controlling a ship. Standard outcome is two independently placed ships with an explanation of nested list/dictionary access. The set example is optional.
-
-[Full tasks, acceptance checks and 120-minute plan](increments/README.md)
-
-[English slides](../../slides/day02.html)
+[English slide deck](../../slides/day02.html)
 
 [Teacher guide](../../slides/day02_teacher.md)
 
-Keep the complete folder with assets, board.py and requirements.txt. Asset credits are in the course README.
+main.py is the fleet reference. starter.py and increments/00_scalars.py provide the short scalar comparison. Keep the supplied assets, board.py and requirements.txt with the code.

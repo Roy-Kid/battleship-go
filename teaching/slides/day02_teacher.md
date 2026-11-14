@@ -1,15 +1,17 @@
-# Lesson 2 teacher guide — Data structures on the board
+# Lesson 2 teacher guide — Data structures
 
-Open the fleet checkpoint first and point to the live data panel. Ask students to predict which occupied cells change when x, y or vertical changes. Define a data structure, then connect each structure to that prediction.
+The slide deck and incremental guide share task IDs A1/A2, B1–B4, C1–C3 and D. Display a task slide, open its named file, find the listed lines or EDIT/READ comment, then have students predict, edit and run.
 
-The tuple represents a board cell, the dictionary represents a ship and the list contains separate ship dictionaries. Coordinates are zero-based columns and rows. The Scout length is two cells and the Cruiser length is three. Lengths and placement validation use the existing board.py rules.
+Use a ten-minute combined scalar/tuple activity on page 4. Demonstrate 00_scalars.py for at most two minutes. Students edit 01_position.py line 24 for A1/A2. Give most practice time to dictionary fields and independently updated fleet records.
 
-Use the incremental guide for the two-hour schedule and acceptance checks. Slides 5, 14 and 16 contain actual screenshots captured from the Python checkpoints. The white outline identifies the selected starting cell. Gold outlines identify the selected ship and green outlines identify other ships.
+Pages 5–7 are cumulative source edits in 02_ship_record.py. B1 sets x=4, y=1. B2 sets vertical=True. B3 sets name=Cruiser. Page 8 traces a click to line 56, which changes runtime data. Restarting restores the saved starting record.
 
-The core demonstration moves a horizontal Scout from `(2, 3)` to `(4, 1)`, then rotates it. Its occupied cells change from `[(2, 3), (3, 3)]` to `[(4, 1), (5, 1)]`, then to `[(4, 1), (4, 2)]`. Have students state each prediction before clicking.
+After the break, open 03_fleet.py fresh. Pages 10–12 make cumulative edits to the second record at line 26, selected index at line 29, then first record at line 25. Page 13 tests rejection without editing source. Page 14 is the exit demonstration. Optional terminal examples occupy pages 15–17.
 
-For the fleet task select index 1 and place the Cruiser at `(6, 2)`. It occupies `[(6, 2), (6, 3), (6, 4)]`. Verify the Scout remains at its previous position. Try an overlapping placement and an edge placement. Rejection must leave the saved record unchanged.
+The complete 120-minute schedule, exact replacements and expected cell lists are in the incremental guide. Use that table as the shared classroom reference. Line numbers refer to the distributed files. EDIT/READ comments identify the same locations if students insert lines.
 
-The teacher supplies window setup, rendering, mouse conversion and calls to cells/can_place. Students focus on choosing structures, accessing entries and changing records. The optional set exercise stays in the terminal examples.
+The existing board.py helpers supply ship lengths, occupied cells and placement checks. The original game screenshots remain useful visual references, but the task slides specify the current source edits and complete expected cells.
 
-[Incremental tasks and schedule](../days/day02/increments/README.md)
+[Incremental task map and schedule](../days/day02/increments/README.md)
+
+[Slide deck](day02.html)

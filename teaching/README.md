@@ -91,9 +91,7 @@ The browser coordinate lab is a demonstration, not a Python interpreter. Student
 
 ## Day 2 incremental route
 
-Follow the [Day 2 increments](days/day02/increments/README.md) with the [data structures slides](slides/day02.html). Predict and run the existing terminal examples, then apply a board-cell tuple, one ship dictionary, and a list of two separately placed ships in three runnable checkpoints. The last checkpoint is the existing Day 2 `main.py`. Sets remain optional; controls and drawing are supplied support.
-
-The guide maps the code to slide numbers, includes acceptance checks and follows the deck's 120-minute sequence. Copy the whole `increments/` directory for standalone use, including its local assets and requirements.
+Use the [Day 2 task map](days/day02/increments/README.md) with the [English slides](slides/day02.html). A ten-minute scalar/tuple warm-up leads to the dictionary and fleet tasks. Every task names its file, edit lines, replacement values and expected board cells. EDIT/READ comments locate the same instructions in the source. The map also distinguishes saved source edits from runtime checks and gives the 120-minute schedule.
 
 ## Pre-class checks
 

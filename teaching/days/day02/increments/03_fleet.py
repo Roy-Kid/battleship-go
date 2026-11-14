@@ -20,10 +20,12 @@ water = pygame.transform.scale(water, (400, 400))
 ship_image = pygame.image.load(str(ASSETS / 'ship.png')).convert_alpha()
 
 TITLE = '03 List places a fleet'
+# EDIT C1/C3 — PPT 10/12. Each line below is a separate ship record.
 fleet = [
     {'name': 'Scout', 'x': 2, 'y': 3, 'vertical': False},
     {'name': 'Cruiser', 'x': 5, 'y': 6, 'vertical': True},
 ]
+# EDIT C2 — PPT 11. Choose the initial list index.
 selected = 0
 notice = 'Click a grid cell to change the data.'
 running = True
@@ -32,6 +34,7 @@ while running:
         if event.type == pygame.QUIT:
             running = False
         if event.type == pygame.KEYDOWN and event.key in (pygame.K_1, pygame.K_2):
+            # READ C2 — Keys 1/2 choose list indices 0/1.
             selected = event.key - pygame.K_1
         if event.type == pygame.KEYDOWN and event.key == pygame.K_r:
             current = fleet[selected]
@@ -48,6 +51,7 @@ while running:
                 clicked = ((mx - LEFT) // CELL, (my - TOP) // CELL)
                 current = fleet[selected]
                 candidate = {**current, 'x': clicked[0], 'y': clicked[1]}
+                # READ D — PPT 13. Reject invalid data before updating the record.
                 if can_place(fleet, candidate, ignore=current['name']):
                     # Student focus. Update the selected record's named fields.
                     current['x'], current['y'] = clicked

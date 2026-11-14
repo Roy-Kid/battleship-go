@@ -20,6 +20,7 @@ water = pygame.transform.scale(water, (400, 400))
 ship_image = pygame.image.load(str(ASSETS / 'ship.png')).convert_alpha()
 
 TITLE = '01 Tuple selects a board cell'
+# EDIT A1/A2 — PPT 4. Change the starting cell, then save and restart.
 position = (2, 3)
 selected = 0
 notice = 'Click a grid cell to change the data.'
@@ -34,6 +35,7 @@ while running:
                 # Teacher supplied. Convert pixels to a board cell.
                 clicked = ((mx - LEFT) // CELL, (my - TOP) // CELL)
                 # Student focus. Replace the whole tuple.
+                # READ A — PPT 4. A click replaces the same tuple.
                 position = clicked
                 notice = 'position now selects this board cell.'
     records = []
