@@ -1,111 +1,159 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Day 2: Data structures · Battleship Lab</title><link rel="stylesheet" href="theme.css"></head><body><main id="stage">
-<section class="slide cover lesson-cover" aria-label="Data structures on the board">
-<div class="content"><h2>Data structures on the board</h2>
-<p class="lead">A coordinate pair → one ship record → a fleet list.</p><p class="">Each task names the file, edit lines and expected board change.</p><p class="muted">Scalar and tuple warm-up · 10 minutes</p>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Day 2: Data structures · Battleship Lab</title><link rel="stylesheet" href="theme.css"><style>
+/* Lesson 2 uses larger questions and answer reveals for classroom discussion. */
+.predict {
+    color: #00666d;
+    font-size: 26px;
+    font-weight: 650;
+    padding-left: 18px;
+    border-left: 5px solid #ef8069;
+}
+.slide details { margin-top: 15px; padding: 12px 18px; }
+.slide details p { font-size: 22px; line-height: 1.4; }
+.slide .compact { margin: 20px 0; }
+.slide .compact td, .slide .compact th { padding: 10px 14px; }
+.slide pre { margin: 18px 0; }
+.game-shot { width: 100%; height: 230px; object-fit: contain; background: #091c2a; }
+.slide.k12-cover .content {
+    display: grid;
+    grid-template-columns: 1fr 1.05fr;
+    gap: 35px;
+    align-items: center;
+}
+.k12-cover h1 { font-size: 65px; line-height: 1.1; margin: 20px 0; }
+.k12-cover figure { margin: 0; }
+.k12-cover img { width: 100%; border: 2px solid #83b9c2; }
+.k12-cover figcaption { color: #d3e6e9; font-size: 19px; margin-top: 15px; }
+</style>
+</head><body><main id="stage">
+<section class="slide cover k12-cover" aria-label="Captain, place your fleet!">
+<div class="content">
+<div>
+<p class="chapter">Lesson 2 · Data structures</p>
+<h1>Captain,<br>place your fleet!</h1>
+<p class="lead">Change a few values.<br>Watch your ships move.</p>
+<p class="muted">Today you control a cell, a ship and a fleet.</p>
 </div>
-<aside>Demonstrate 03_fleet.py briefly. Open the increments guide for the complete edit map. The scalar comparison is a two-minute teacher demonstration.</aside>
-</section>
-<section class="slide " aria-label="Choose a structure for the game">
-<div class="content"><h2>Choose a structure for the game</h2>
-<table class="compact"><thead><tr><th>Structure</th><th>Definition</th><th>Game data</th></tr></thead><tbody><tr><td>tuple</td><td>Ordered entries that cannot be replaced</td><td>One (column, row) pair</td></tr><tr><td>dict</td><td>Values accessed by unique keys</td><td>Name, x, y and vertical for one ship</td></tr><tr><td>list</td><td>An ordered sequence that can be changed</td><td>Independent ship records in a fleet</td></tr></tbody></table>
+<figure><img src="day02_fleet.png" alt="Battleship board with two ships and the selected ship's data"><figcaption>Your code gives the ships their places.</figcaption></figure>
 </div>
-<aside>Use the definitions to justify the representations. Window rendering and placement checks are supplied.</aside>
+<aside>0–3 minutes. Run 03_fleet.py briefly. Ask students to point to the two ships and name one thing they want to change. Keep the classroom focus on data structures. The scalar/tuple warm-up on page 4 takes ten minutes.</aside>
 </section>
-<section class="slide " aria-label="Follow the same files as the slides">
-<div class="content"><h2>Follow the same files as the slides</h2>
-<table class="compact"><thead><tr><th>Slides</th><th>File</th><th>Student work</th></tr></thead><tbody><tr><td>4 · A1/A2</td><td>01_position.py</td><td>Change one coordinate pair</td></tr><tr><td>5–8 · B1–B4</td><td>02_ship_record.py</td><td>Move, rotate, resize by ship name, trace a click</td></tr><tr><td>10–13 · C1–D</td><td>03_fleet.py</td><td>Move one list member and verify valid placement</td></tr><tr><td>15–17 · Optional</td><td>data_structures.py</td><td>List operations, references and unique targets</td></tr></tbody></table><p class="muted">00_scalars.py is a quick comparison during slide 4.</p>
+<section class="slide " aria-label="What data does a ship need?">
+<div class="content">
+<h2>What data does a ship need?</h2>
+<p class="predict">Point to a ship. What do we need to remember about it?</p><p class="">A <strong>data structure</strong> keeps related values together so we can find and change them.</p><table class="compact"><thead><tr><th>Python structure</th><th>What it does</th><th>Our game example</th></tr></thead><tbody><tr><td><strong>tuple</strong></td><td>Keeps values in order. Assign a new tuple when the coordinates change.</td><td><code>position = (4, 1)</code></td></tr><tr><td><strong>dict</strong></td><td>Finds values by named keys, such as x and y.</td><td><code>ship['x']</code></td></tr><tr><td><strong>list</strong></td><td>Keeps items in order. We can change, add or remove items.</td><td><code>fleet[0]</code></td></tr></tbody></table>
 </div>
-<aside>All file paths are relative to teaching/days/day02. Run commands from increments or use the full relative path.</aside>
+<aside>3–7 minutes. Let students suggest name, position and direction before introducing the terms. Define data structure, tuple, dictionary and list explicitly. Ask which structure describes one coordinate pair, one ship and several ships.</aside>
 </section>
-<section class="slide " aria-label="A1/A2 · Group a cell into one tuple">
-<div class="content"><h2>A1/A2 · Group a cell into one tuple</h2>
-<p class="muted"><code>increments/01_position.py</code> · Edit line 24</p><pre><code>position = (2, 3)  # Starting cell
-# A1: replace with (4, 1), save and restart.
-# A2: replace with (1, 4), save and restart.</code></pre><table class="compact"><thead><tr><th>Edit</th><th>Visible board result</th></tr></thead><tbody><tr><td>A1 · (4, 1)</td><td>White outline at column 4, row 1</td></tr><tr><td>A2 · (1, 4)</td><td>White outline at column 1, row 4</td></tr></tbody></table><p class="muted">Quick comparison · 00_scalars.py line 23 stores col and row separately. Index 0 reads the column, index 1 reads the row.</p>
+<section class="slide " aria-label="Three missions. One board.">
+<div class="content">
+<h2>Three missions. One board.</h2>
+<table class="compact"><thead><tr><th>Mission</th><th>Open this file</th><th>Your job</th></tr></thead><tbody><tr><td>A · Find a cell</td><td><code>01_position.py</code></td><td>Change a coordinate pair.</td></tr><tr><td>B · Control a ship</td><td><code>02_ship_record.py</code></td><td>Move it, turn it and try a longer ship.</td></tr><tr><td>C · Command a fleet</td><td><code>03_fleet.py</code></td><td>Choose one ship and move it on its own.</td></tr></tbody></table><p class="muted">Your working folder is <code>teaching/days/day02/increments</code>.</p><p class="predict">Before each run, point to the cells you expect to change.</p>
 </div>
-<aside>10–20 minutes total, including at most two minutes for scalars. A1 and A2 are sequential edits of the same line. A tuple groups the two scalar values. No separate scalar assignment is required.</aside>
+<aside>7–10 minutes. Locate the three files and enable editor line numbers. Task IDs and page numbers match the incremental guide. Pages 15–17 are optional.</aside>
 </section>
-<section class="slide " aria-label="B1 · Move the Scout">
-<div class="content"><h2>B1 · Move the Scout</h2>
-<p class="muted"><code>increments/02_ship_record.py</code> · Edit lines 26–27</p><pre><code>&#x27;x&#x27;: 4,
-&#x27;y&#x27;: 1,</code></pre><p class="callout">Start this file fresh. The horizontal Scout moves from [(2, 3), (3, 3)] to [(4, 1), (5, 1)].</p><p class="muted">Save → close the old window → restart the same file.</p>
+<section class="slide " aria-label="A1/A2 · Can you find the cell?">
+<div class="content">
+<h2>A1/A2 · Can you find the cell?</h2>
+<p class="muted"><code>increments/01_position.py</code> · Edit line 24</p><pre><code>position = (2, 3)
+# A1 — change to (4, 1), then run.
+# A2 — change to (1, 4), then run.</code></pre><p class="predict">Point first! Will swapping the numbers move the outline?</p><details><summary>Check your guess</summary><p class="">A1 selects column <strong>4</strong>, row <strong>1</strong>.<br>A2 selects column <strong>1</strong>, row <strong>4</strong>.<br>Index 0 gives the column. Index 1 gives the row.</p></details><p class="muted">Quick look · 00_scalars.py line 23 stores <code>col, row = 2, 3</code>. A tuple keeps that pair together.</p>
 </div>
-<aside>20–35 minutes. Edit the x and y fields inside the existing ship dictionary. Keep name Scout and vertical False. Preserve these edits for B2.</aside>
+<aside>10–20 minutes total. Spend at most two minutes comparing the scalar file. Ask students to point before editing. Save and restart after A1, then repeat for A2. A tuple is an ordered sequence whose entries cannot be replaced individually. These edits assign a new tuple.</aside>
 </section>
-<section class="slide " aria-label="B2 · Rotate the same ship">
-<div class="content"><h2>B2 · Rotate the same ship</h2>
-<p class="muted"><code>increments/02_ship_record.py</code> · Edit line 28</p><div class="two"><div><img src="day02_ship_after.png" alt="Scout at column 4 row 1 with vertical orientation" style="width:100%;height:260px;object-fit:contain;background:#091c2a"></div><div><pre><code>&#x27;vertical&#x27;: True,</code></pre></div></div><p class="callout">Keep B1’s x=4 and y=1. The Scout now occupies [(4, 1), (4, 2)].</p><p class="muted">Save → close the old window → restart the same file.</p>
+<section class="slide " aria-label="B1 · Scout, sail to (4, 1)!">
+<div class="content">
+<h2>B1 · Scout, sail to (4, 1)!</h2>
+<p class="muted"><code>increments/02_ship_record.py</code> · Edit lines 26–27</p><p class="">Start with the original ship data. Change these two fields inside <code>ship</code>.</p><pre><code>&#x27;x&#x27;: 4,
+&#x27;y&#x27;: 1,</code></pre><p class="predict">Scout is two cells long. Which two cells will it cover?</p><details><summary>Check your guess</summary><p class="">Before the edit · <code>[(2, 3), (3, 3)]</code><br>After the edit · <code>[(4, 1), (5, 1)]</code><br>The ship is still horizontal.</p></details><p class="muted">Save your edit → close the game → run the same file again.</p>
 </div>
-<aside>35–45 minutes. Change only the vertical field from False to True. The starting cell stays at (4,1). Compare the two occupied-cell lists. Pressing R produces the same field update through supplied controls.</aside>
+<aside>20–35 minutes. Ask a student to show x and y inside the dictionary. Keep name Scout and vertical False. Students draw or point to the predicted cells before running. Keep B1 edits for B2.</aside>
 </section>
-<section class="slide " aria-label="B3 · Change the ship type">
-<div class="content"><h2>B3 · Change the ship type</h2>
-<p class="muted"><code>increments/02_ship_record.py</code> · Edit line 25</p><pre><code>&#x27;name&#x27;: &#x27;Cruiser&#x27;,</code></pre><p class="callout">Keep B1 and B2. The ship grows from two to three cells, covering [(4, 1), (4, 2), (4, 3)].</p><p class="muted">Save → close the old window → restart the same file.</p>
+<section class="slide " aria-label="B2 · Turn the Scout!">
+<div class="content">
+<h2>B2 · Turn the Scout!</h2>
+<p class="muted"><code>increments/02_ship_record.py</code> · Edit line 28</p><div class="two"><div><img class="game-shot" src="day02_ship_after.png" alt="Vertical Scout at column 4 row 1"></div><div><pre><code>&#x27;vertical&#x27;: True,</code></pre><p class="">Keep x=4 and y=1 from B1.</p><p class="predict">Which cell stays? Which cell moves?</p></div></div><details><summary>Check your guess</summary><p class="">The first cell stays at <code>(4, 1)</code>.<br>The other moves from <code>(5, 1)</code> to <code>(4, 2)</code>.</p></details><p class="muted">Save your edit → close the game → run the same file again.</p>
 </div>
-<aside>45–60 minutes. The existing LENGTHS mapping gives Scout length 2 and Cruiser length 3. Students change the name field in their record. Name is also the identifier used by the supplied placement rules.</aside>
+<aside>35–45 minutes. Change only vertical from False to True. Use the screenshot after students predict, then compare with their own running game. Ask what True means for this field. R updates the same field during the game.</aside>
 </section>
-<section class="slide " aria-label="B4 · Trace a click back to the data">
-<div class="content"><h2>B4 · Trace a click back to the data</h2>
-<p class="muted"><code>increments/02_ship_record.py</code> · Read line 56</p><pre><code>current[&#x27;x&#x27;], current[&#x27;y&#x27;] = clicked</code></pre><p class="">Keep the B3 source data. Run the file and click column 6, row 2.</p><p class="callout">The vertical Cruiser covers [(6, 2), (6, 3), (6, 4)]. The panel shows x=6 and y=2.</p><p class="muted">Observe this update during the run. Restarting reloads the saved starting record at (4, 1).</p>
+<section class="slide " aria-label="B3 · Bring in the Cruiser!">
+<div class="content">
+<h2>B3 · Bring in the Cruiser!</h2>
+<p class="muted"><code>increments/02_ship_record.py</code> · Edit line 25</p><pre><code>&#x27;name&#x27;: &#x27;Cruiser&#x27;,</code></pre><p class="">Keep the position and direction from B1 and B2.</p><p class="predict">Scout uses 2 cells. Cruiser uses 3. Where does the extra cell go?</p><details><summary>Check your guess</summary><p class="">Your vertical Cruiser covers<br><code>[(4, 1), (4, 2), (4, 3)]</code>.</p></details><p class="muted">Save your edit → close the game → run the same file again.</p>
 </div>
-<aside>60–75 minutes. No source edit for B4. current refers to ship. Trace the accepted click through the existing guard into the two dictionary fields. A click changes runtime data, whereas B1–B3 changed saved initial data.</aside>
+<aside>45–60 minutes. The existing LENGTHS mapping associates the name with ship length. Have students name the extra cell before they run. Keep B3 source data for the next mission.</aside>
 </section>
-<section class="slide " aria-label="Break · ten minutes">
-<div class="content"><h2>Break · ten minutes</h2>
-<p class="lead">Save the working B3 source record.</p><div class="break-number">10:00</div>
+<section class="slide " aria-label="B4 · Follow the click!">
+<div class="content">
+<h2>B4 · Follow the click!</h2>
+<p class="muted"><code>increments/02_ship_record.py</code> · Read line 56</p><p class="">Run your B3 file. Click column <strong>6</strong>, row <strong>2</strong>.</p><pre><code>current[&#x27;x&#x27;], current[&#x27;y&#x27;] = clicked</code></pre><p class="predict">Look at the ship, then the data panel. What changed together?</p><details><summary>Check your guess</summary><p class="">The panel shows <code>x=6</code> and <code>y=2</code>.<br>The Cruiser covers <code>[(6, 2), (6, 3), (6, 4)]</code>.</p></details><p class="muted">Read this line and try the click. Restarting uses your saved starting position (4, 1).</p>
 </div>
-<aside>75–85 minutes. After the break open the separate 03_fleet.py file. Its records begin from their own saved defaults.</aside>
+<aside>60–75 minutes. This task requires no source edit. Ask students to trace the click into the two fields and back to the board. current refers to the ship dictionary. Ask where the ship will appear after restarting, then verify.</aside>
 </section>
-<section class="slide " aria-label="C1 · Move the second fleet record">
-<div class="content"><h2>C1 · Move the second fleet record</h2>
-<p class="muted"><code>increments/03_fleet.py</code> · Edit line 26</p><pre><code>{&#x27;name&#x27;: &#x27;Cruiser&#x27;, &#x27;x&#x27;: 6, &#x27;y&#x27;: 2, &#x27;vertical&#x27;: True},</code></pre><p class="callout">Open this file fresh. Cruiser moves to [(6, 2), (6, 3), (6, 4)]. Scout stays at [(2, 3), (3, 3)].</p><p class="muted">Save → close the old window → restart the same file.</p>
+<section class="slide " aria-label="Save your fleet. Take a break.">
+<div class="content">
+<h2>Save your fleet. Take a break.</h2>
+<p class="lead">Save your B3 edits, stretch and look away from the screen.</p><div class="break-number">10:00</div><p class="muted">Next mission · two ships to command.</p>
 </div>
-<aside>85–93 minutes. Edit only the second dictionary in the fleet list. Keep the first record untouched. The new file has its own initial data, so it starts with a two-cell Scout even if B3 changed the separate one-ship file.</aside>
+<aside>75–85 minutes. Set a separate ten-minute timer. This display is a reminder, not a countdown. After the break open 03_fleet.py fresh.</aside>
 </section>
-<section class="slide " aria-label="C2 · Select the initial fleet member">
-<div class="content"><h2>C2 · Select the initial fleet member</h2>
-<p class="muted"><code>increments/03_fleet.py</code> · Edit line 29</p><div class="two"><div><img src="day02_fleet.png" alt="Selected Cruiser at column 6 row 2 and independent Scout" style="width:100%;height:260px;object-fit:contain;background:#091c2a"></div><div><pre><code>selected = 1</code></pre></div></div><p class="callout">Keep C1. The gold outline and data panel select Cruiser. Both ships stay in the same cells.</p><p class="muted">Save → close the old window → restart the same file.</p>
+<section class="slide " aria-label="C1 · Send the Cruiser to (6, 2)">
+<div class="content">
+<h2>C1 · Send the Cruiser to (6, 2)</h2>
+<p class="muted"><code>increments/03_fleet.py</code> · Edit line 26</p><p class="">Start with this file’s original fleet. Edit the <strong>second</strong> ship record.</p><pre><code>{&#x27;name&#x27;: &#x27;Cruiser&#x27;, &#x27;x&#x27;: 6, &#x27;y&#x27;: 2, &#x27;vertical&#x27;: True},</code></pre><p class="predict">Will Scout follow Cruiser? Make your prediction.</p><details><summary>Check your guess</summary><p class="">Cruiser moves to <code>[(6, 2), (6, 3), (6, 4)]</code>.<br>Scout stays at <code>[(2, 3), (3, 3)]</code>. Each ship has its own record.</p></details><p class="muted">Save your edit → close the game → run the same file again.</p>
 </div>
-<aside>93–100 minutes. Change selected from 0 to 1. This edits an index, which changes which record is selected. Press 1 or 2 during the run and compare indices 0 and 1.</aside>
+<aside>85–93 minutes. Emphasize that the second file has its own initial data. In 03_fleet.py Scout begins as Scout, even though students changed the name in the separate one-ship file. Edit the second record only. Keep C1 for C2.</aside>
 </section>
-<section class="slide " aria-label="C3 · Update the first record independently">
-<div class="content"><h2>C3 · Update the first record independently</h2>
-<p class="muted"><code>increments/03_fleet.py</code> · Edit line 25</p><pre><code>{&#x27;name&#x27;: &#x27;Scout&#x27;, &#x27;x&#x27;: 4, &#x27;y&#x27;: 1, &#x27;vertical&#x27;: False},</code></pre><p class="callout">Keep C1 and C2. Scout moves to [(4, 1), (5, 1)]. Cruiser stays at [(6, 2), (6, 3), (6, 4)].</p><p class="muted">Save → close the old window → restart the same file.</p>
+<section class="slide " aria-label="C2 · Who is the captain selecting?">
+<div class="content">
+<h2>C2 · Who is the captain selecting?</h2>
+<p class="muted"><code>increments/03_fleet.py</code> · Edit line 29</p><div class="two"><div><img class="game-shot" src="day02_fleet.png" alt="Cruiser selected with a gold outline while Scout stays in place"></div><div><pre><code>selected = 1</code></pre><p class="">Keep C1. Change the starting selection from 0 to 1.</p><p class="predict">Which ship gets the gold outline?</p></div></div><details><summary>Check your guess</summary><p class="">Cruiser is <code>fleet[1]</code>, so it gets the gold outline.<br>Scout is <code>fleet[0]</code>. Both ships keep their cells.</p></details><p class="muted">Save your edit → close the game → run the same file again.</p>
 </div>
-<aside>100–105 minutes. Edit the first dictionary only. After restarting press 1 to inspect its fields. The two list entries must be separate dictionaries.</aside>
+<aside>93–100 minutes. Connect the visible choice with the zero-based list index. Ask students to press 1 and 2 in the running game and read selected in the panel. Key 1 selects index 0, key 2 selects index 1.</aside>
 </section>
-<section class="slide " aria-label="D · Check a rejected placement">
-<div class="content"><h2>D · Check a rejected placement</h2>
-<p class="muted"><code>increments/03_fleet.py</code> · Read lines 55–57</p><pre><code>if can_place(fleet, candidate, ignore=current[&#x27;name&#x27;]):
-    current[&#x27;x&#x27;], current[&#x27;y&#x27;] = clicked</code></pre><table class="compact"><thead><tr><th>Action after C3</th><th>Expected data and board result</th></tr></thead><tbody><tr><td>Press 1, click (6, 2)</td><td>Overlap rejected. Scout stays at (4, 1).</td></tr><tr><td>Click (9, 9)</td><td>Edge placement rejected. Scout stays at (4, 1).</td></tr></tbody></table><p class="muted">Run these checks with the saved C3 data.</p>
+<section class="slide " aria-label="C3 · Scout gets its own orders">
+<div class="content">
+<h2>C3 · Scout gets its own orders</h2>
+<p class="muted"><code>increments/03_fleet.py</code> · Edit line 25</p><p class="">Keep C1 and C2. Now edit the <strong>first</strong> ship record.</p><pre><code>{&#x27;name&#x27;: &#x27;Scout&#x27;, &#x27;x&#x27;: 4, &#x27;y&#x27;: 1, &#x27;vertical&#x27;: False},</code></pre><p class="predict">Point to Scout’s new cells. Where will Cruiser be?</p><details><summary>Check your guess</summary><p class="">Scout moves to <code>[(4, 1), (5, 1)]</code>.<br>Cruiser stays at <code>[(6, 2), (6, 3), (6, 4)]</code>.<br>Press 1 to inspect Scout in the panel.</p></details><p class="muted">Save your edit → close the game → run the same file again.</p>
 </div>
-<aside>105–110 minutes. No source edit for D. Read the guard and the actual update line. After rejection, both the record and the rendered position must remain at the previous valid location.</aside>
+<aside>100–105 minutes. Ask students to point to the first and second dictionaries in the list. Each is a separate record. Have each learner say which fields they changed and show the other ship staying in its cells.</aside>
 </section>
-<section class="slide " aria-label="Show the edited data and its effect">
-<div class="content"><h2>Show the edited data and its effect</h2>
-<table class="compact"><thead><tr><th>Task</th><th>Show the edited source</th><th>Show the result</th></tr></thead><tbody><tr><td>A</td><td>01_position.py coordinate pair</td><td>The selected cell</td></tr><tr><td>B</td><td>02_ship_record.py ship fields</td><td>Location, direction and length</td></tr><tr><td>C</td><td>03_fleet.py record and selected index</td><td>One changed ship and one independent ship</td></tr></tbody></table><p class="callout">Explain one prediction, one observed change and one placement rejection.</p>
+<section class="slide " aria-label="D · Try to break the placement rule">
+<div class="content">
+<h2>D · Try to break the placement rule</h2>
+<p class="muted"><code>increments/03_fleet.py</code> · Read lines 55–57</p><p class="">Keep your C3 data. Press <strong>1</strong> to choose Scout.</p><table class="compact"><thead><tr><th>Try this</th><th>Predict before clicking</th></tr></thead><tbody><tr><td>Click (6, 2)</td><td>Can Scout share a cell with Cruiser?</td></tr><tr><td>Click (9, 9)</td><td>Can a two-cell ship fit from here?</td></tr></tbody></table><details><summary>Check your guess</summary><p class="">Both moves are rejected.<br>Scout stays at <code>(4, 1)</code> and still covers <code>[(4, 1), (5, 1)]</code>.</p></details><pre><code>if can_place(fleet, candidate, ignore=current[&#x27;name&#x27;]):
+    current[&#x27;x&#x27;], current[&#x27;y&#x27;] = clicked</code></pre>
 </div>
-<aside>110–120 minutes. Students use their saved task versions and point to the exact edited lines. The optional examples follow after the core classroom route.</aside>
+<aside>105–110 minutes. Students read the supplied check and run two experiments. No source edit is needed. Rejection must preserve both the record and the board position. Ask them to name the rule after each attempt.</aside>
 </section>
-<section class="slide " aria-label="Optional · List append and length">
-<div class="content"><h2>Optional · List append and length</h2>
+<section class="slide " aria-label="Captain’s show-and-tell">
+<div class="content">
+<h2>Captain’s show-and-tell</h2>
+<p class="lead">Take one minute. Show a partner what your code can do.</p><ol class="task"><li>Point to a line you edited.</li><li>Say which value you changed.</li><li>Show the matching change on the board.</li><li>Try one rejected move and explain the rule.</li></ol><p class="predict">Can you explain why we used a tuple, a dictionary and a list?</p>
+</div>
+<aside>110–120 minutes. Listen for a correct connection between representation, edit and visible result. Use 01_position.py for a coordinate pair, 02_ship_record.py for ship fields, and 03_fleet.py for independent records. Invite partners to ask one prediction question.</aside>
+</section>
+<section class="slide " aria-label="Bonus · Add a name to the list">
+<div class="content">
+<h2>Bonus · Add a name to the list</h2>
 <p class="muted"><code>increments/data_structures.py</code> · Edit line 14</p><pre><code>names.append(&#x27;Carrier&#x27;)
-# Change the argument to &#x27;Rescue&#x27;.</code></pre><p class="">The terminal shows Scout, Cruiser, Rescue. The list length remains 3.</p><p class="muted">This separate name-list example changes terminal output. Use C1/C3 to change ships on the game board.</p>
+# Change &#x27;Carrier&#x27; to &#x27;Rescue&#x27;.</code></pre><p class="predict">Will the list have 2, 3 or 4 names?</p><details><summary>Check your guess</summary><p class="">Three names · <code>Scout, Cruiser, Rescue</code>.<br><code>len(names)</code> is 3.</p></details><p class="muted">Run this small example in the terminal. For a board move, use C1 or C3.</p>
 </div>
-<aside>Optional reference. Read the nearby names initialization and len call. This is a list operation exercise, separate from the required fleet-placement edits.</aside>
+<aside>Optional page 15. Students edit the appended value in the existing name-list example. Explain append and len through the prediction. This exercise prints text in a separate Python process.</aside>
 </section>
-<section class="slide " aria-label="Optional · One record can have two references">
-<div class="content"><h2>Optional · One record can have two references</h2>
+<section class="slide " aria-label="Bonus · Two names, one record">
+<div class="content">
+<h2>Bonus · Two names, one record</h2>
 <p class="muted"><code>increments/data_structures.py</code> · Edit line 25</p><pre><code>fleet[0][&#x27;x&#x27;] = 6
-# Change 6 to 7, then run this example.</code></pre><p class="">Both the nested-access output and ship['x'] become 7. The second record keeps x=5.</p><p class="muted">The running game is unchanged by this separate terminal example.</p>
+# Change 6 to 7, then run.</code></pre><p class="predict">Will ship['x'] change too?</p><details><summary>Check your guess</summary><p class="">Yes! <code>ship</code> and <code>fleet[0]</code> refer to the same dictionary.<br>Both report 7. The second ship still has x=5.</p></details><p class="muted">Compare the terminal output. In the fleet game, each ship has a separate record.</p>
 </div>
-<aside>Optional reference. Point to fleet=[ship,...] immediately above. The same dictionary has two references. C3 uses separate records so editing one ship does not edit another.</aside>
+<aside>Optional page 16. Point to fleet=[ship,...] above the edit. Ask students to trace the two ways of reaching that dictionary. Use the independently edited game records from C3 as a comparison.</aside>
 </section>
-<section class="slide " aria-label="Optional · A set removes duplicate values">
-<div class="content"><h2>Optional · A set removes duplicate values</h2>
-<p class="muted"><code>increments/data_structures.py</code> · Edit line 32</p><pre><code>targets = {(2, 3), (2, 3), (4, 1), (6, 2)}</code></pre><p class="">Add (6, 2). The unique target count becomes 3 and membership of (2, 3) stays True.</p><p class="muted">This terminal set example leaves the placement board unchanged.</p>
+<section class="slide " aria-label="Bonus · Spot the duplicate target">
+<div class="content">
+<h2>Bonus · Spot the duplicate target</h2>
+<p class="muted"><code>increments/data_structures.py</code> · Edit line 32</p><pre><code>targets = {(2, 3), (2, 3), (4, 1), (6, 2)}</code></pre><p class="">Add <code>(6, 2)</code> to the original set.</p><p class="predict">Four entries are written. How many different targets are there?</p><details><summary>Check your guess</summary><p class="">Three! A <strong>set</strong> keeps distinct values.<br>The two copies of <code>(2, 3)</code> count once.</p></details><p class="muted">Check the count in the terminal. A set has no numbered positions.</p>
 </div>
-<aside>Optional reference. A set contains distinct values without numbered positions. Empty set() and empty dictionary {} are different constructors.</aside>
+<aside>Optional page 17. Give the explicit definition of set as a collection of distinct values without positional indexing. The new coordinate is an extension of the original example. Empty set() and empty dictionary {} are different constructors.</aside>
 </section><div id="footer"><span>Battleship Lab · Day 2</span><span id="page"></span></div><div id="progress"></div></main>
 <nav id="toolbar" aria-label="Presentation controls"><button id="previous" aria-label="Previous slide">←</button><button id="next" aria-label="Next slide">→</button><button id="noteButton">Notes N</button><button id="overviewButton">Overview O</button><button id="fullButton">Full screen F</button></nav><div id="notes" aria-live="polite"></div><div id="overview" aria-label="Slide overview"></div><script src="presentation.js"></script></body></html>
